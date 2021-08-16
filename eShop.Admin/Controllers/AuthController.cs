@@ -51,12 +51,11 @@ namespace eShop.Admin.Controllers
 
         public IActionResult LogOut()
         {
-            string sessionId = Guid.Parse(HttpContext.Session.GetString("SessionID")).ToString();
-            string userName = Guid.Parse(HttpContext.Session.GetString("UserName")).ToString(); ;
+            var sessionId = Guid.Parse(HttpContext.Session.GetString("SessionID"));
 
-            HttpContext.Session.Remove(sessionId);
-            HttpContext.Session.Remove(userName);
-
+            HttpContext.Session.Remove("SessionID");
+            HttpContext.Session.Remove("UserName");
+            _UserApplicationService.DeleteSessionID(sessionId);
             return RedirectToAction(controllerName:"Auth",actionName:"Login");
         }
 

@@ -22,6 +22,12 @@ namespace eShop.ApplicationService.Services
             _UserRepository = UserRepository;
         }
 
+        public bool DeleteSessionID(Guid sessionID)
+        {
+            return _UserRepository.DeleteSessionId(sessionID);
+            
+        }
+
         public bool DeleteUser(Guid userId)
         {
            return _UserDomainService.DeleteUser(userId);

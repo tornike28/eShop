@@ -23,7 +23,7 @@ namespace eShop.DataBaseRepository
                     Email = user.Email,
                     FirstName = user.FirstName,
                     PasswordHash = user.PasswordHash,
-                    IsActive = user.IsActive,
+                    IsActive = true,
                     LastName = user.LastName,
                 };
                 UsersInRole usersInRole = new UsersInRole()
@@ -64,6 +64,26 @@ namespace eShop.DataBaseRepository
 
                 return query != null ? false : true;
 
+            }
+        }
+
+        public bool DeleteSessionId(Guid sessionID)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var user = (from item in context.Users
+                            where item.SessionId == sessionID
+                            select item).FirstOrDefault();
+                if (user == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    user.SessionId = null;
+                    context.SaveChanges();
+                    return true;
+                }
             }
         }
 

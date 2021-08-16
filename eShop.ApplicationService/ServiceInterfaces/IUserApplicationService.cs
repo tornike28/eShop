@@ -13,5 +13,6 @@ namespace eShop.ApplicationService.ServiceInterfaces
         List<UserQueryDTO> GetUsersQuery();
         ResultDTO UserRegistraion(UserDTO User, int roleID);
         bool DeleteUser(Guid userId);
+        bool DeleteSessionID(Guid sessionID);
     }
 }
