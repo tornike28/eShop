@@ -129,6 +129,22 @@ namespace eShop.DataBaseRepository
             }
         }
 
+        public List<UserStatisticsDTO> GetUsersStatisticsQuery()
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var query = context.Users
+                                        .GroupBy(m => m.DateCreated.Date)
+                                        .Select(m => new UserStatisticsDTO
+                                        {
+                                            Month = m.Key.Month,
+                                            NumberOfUsers = m.Count()
+                                        }).ToList();
+
+                return query;
+            }
+        }
+
         public bool Login(UserEntity UserModel)
         {
             using (eShopDBContext context = new eShopDBContext())

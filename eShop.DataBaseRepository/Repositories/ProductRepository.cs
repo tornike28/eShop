@@ -52,7 +52,7 @@ namespace eShop.DataBaseRepository
                 }
                 context.Products.Add(newProduct);
                 context.ProductImages.AddRange(ProductImages);
-
+                context.ProductsInCategories.AddRange(ProductsInCategories);
                 context.SaveChanges();
             }
         }
@@ -78,31 +78,63 @@ namespace eShop.DataBaseRepository
             }
         }
 
-        public List<ProductDTO> GetProduct()
+        public List<ProductDTO> GetProduct(Guid? productID)
         {
-            using (eShopDBContext context = new eShopDBContext())
+            if (productID == null)
             {
-                var query = (from pc in context.ProductsInCategories
-                             join p in context.Products on pc.ProductId equals p.Id
-                             join c in context.Categories on pc.CategoryId equals c.Id
-                             join u in context.Units on p.UnitId equals u.Id
-                             join pp in context.ProductImages on p.Id equals pp.ProductId
-                             where pp.IsThumbnail == true && p.DateDeleted == null
+                using (eShopDBContext context = new eShopDBContext())
+                {
+                    var query = (from pc in context.ProductsInCategories
+                                 join p in context.Products on pc.ProductId equals p.Id
+                                 join c in context.Categories on pc.CategoryId equals c.Id
+                                 join u in context.Units on p.UnitId equals u.Id
+                                 join pp in context.ProductImages on p.Id equals pp.ProductId
+                                 where pp.IsThumbnail == true && p.DateDeleted == null
 
-                             select new ProductDTO
-                             {
-                                 ProductId = p.Id,
-                                 Name = p.Name,
-                                 CategoryName = c.Name,
-                                 CreateDate = p.DateCreated,
-                                 Description = p.Description,
-                                 Price = p.Price,
-                                 Quantity = p.Quantity,
-                                 UnitName = u.Name,
-                                 ThumbnailPhoto = pp.ImagePath
-                             }).ToList();
+                                 select new ProductDTO
+                                 {
+                                     UniqueID = pc.Id,
+                                     ProductId = p.Id,
+                                     Name = p.Name,
+                                     CategoryName = c.Name,
+                                     CreateDate = p.DateCreated,
+                                     Description = p.Description,
+                                     Price = p.Price,
+                                     Quantity = p.Quantity,
+                                     UnitName = u.Name,
+                                     ThumbnailPhoto = pp.ImagePath
+                                 }).ToList();
 
-                return query;
+                    return query;
+                }
+            }
+            else
+            {
+                using (eShopDBContext context = new eShopDBContext())
+                {
+                    var query = (from pc in context.ProductsInCategories
+                                 join p in context.Products on pc.ProductId equals p.Id
+                                 join c in context.Categories on pc.CategoryId equals c.Id
+                                 join u in context.Units on p.UnitId equals u.Id
+                                 join pp in context.ProductImages on p.Id equals pp.ProductId
+                                 where pp.IsThumbnail == true && p.DateDeleted == null && pc.Id == productID
+
+                                 select new ProductDTO
+                                 {
+                                     UniqueID = pc.Id,
+                                     ProductId = p.Id,
+                                     Name = p.Name,
+                                     CategoryName = c.Name,
+                                     CreateDate = p.DateCreated,
+                                     Description = p.Description,
+                                     Price = p.Price,
+                                     Quantity = p.Quantity,
+                                     UnitName = u.Name,
+                                     ThumbnailPhoto = pp.ImagePath
+                                 }).ToList();
+
+                    return query;
+                }
             }
         }
     }

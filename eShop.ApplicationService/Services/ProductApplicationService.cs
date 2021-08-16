@@ -24,17 +24,17 @@ namespace eShop.ApplicationService.Services
             _ProductDomainService = ProductDomainService;
         }
 
-        public List<ProductDTO> GetProduct()
+        public List<ProductDTO> GetProduct(Guid? productID)
         {
-            return _ProductRepository.GetProduct();
+            return _ProductRepository.GetProduct(productID);
         }
 
         public ResultDTO AddProduct(ProductDTO product,  List<string> images)
         {
             ProductEntity ProductModel = new ProductEntity();
             ProductModel.Set(AutoMapperExtensions.MapObject<ProductDTO, ProductEntity>(product));
-
-            return _ProductDomainService.AddProduct(ProductModel, product.CategoryIds, images);
+            List<int> categoryID = new List<int>() { 6 }; // ეს სანამ კატეგორიას გადმოვაწვდი product.CategoryIds
+            return _ProductDomainService.AddProduct(ProductModel, categoryID, images);
             
         }
 

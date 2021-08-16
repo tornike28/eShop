@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eShop.ApplicationService\eShop.ApplicationService.csproj" />
+    <ProjectReference Include="..\eShop.DataBaseRepository\eShop.DataBaseRepository.csproj" />
+  </ItemGroup>
+
 </Project>

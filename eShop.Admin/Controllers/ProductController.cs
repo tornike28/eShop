@@ -24,7 +24,9 @@ namespace eShop.Admin.Controllers
         [Authorize]
         public IActionResult GetProduct()
         {
-            var query = _ProductApplicationService.GetProduct();
+            var query = _ProductApplicationService.GetProduct(null);
+
+
             return View(query);
         }
 
@@ -40,7 +42,7 @@ namespace eShop.Admin.Controllers
 
             foreach (var file in productModel.ImageFiles)
             {
-                var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwroot\\Upload\\");
+                var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Upload\\");
                 bool basePathExists = Directory.Exists(basePath);
                 if (!basePathExists) Directory.CreateDirectory(basePath);
                 var fileName = Path.GetFileNameWithoutExtension(file.FileName);
@@ -53,7 +55,7 @@ namespace eShop.Admin.Controllers
                     {
                         await file.CopyToAsync(stream);
                     }
-                    fileNames.Add(fileName);
+                    fileNames.Add(filePath);
                 }
             }
 

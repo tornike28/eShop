@@ -10,7 +10,7 @@ namespace eShop.ApplicationService.ServiceInterfaces
 {
     public interface IProductApplicationService
     {
-        List<ProductDTO> GetProduct();
+        List<ProductDTO> GetProduct(Guid? productID);
         ResultDTO AddProduct(ProductDTO product, List<string> images);
         bool DeleteProduct(Guid ProductID);
     }

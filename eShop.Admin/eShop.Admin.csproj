@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Upload\" />
+    <Folder Include="wwwroot\Upload\" />
   </ItemGroup>
 
 </Project>

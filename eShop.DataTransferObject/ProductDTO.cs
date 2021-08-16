@@ -33,5 +33,6 @@ namespace eShop.DataTransferObject
         public DateTime CreateDate { get; set; }
 
         public List<string> ImageFiles { get; set; }
+        public Guid UniqueID { get; set; }
     }
 }

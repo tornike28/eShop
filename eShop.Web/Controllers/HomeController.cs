@@ -1,4 +1,5 @@
-﻿using eShop.Web.Models;
+﻿using eShop.ApplicationService.ServiceInterfaces;
+using eShop.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,15 +12,17 @@ namespace eShop.Web.Controllers
 {
     public class HomeController : Controller
     {
-      
-        public HomeController()
+        private IProductApplicationService _ProductApplicationService;
+        public HomeController(IProductApplicationService ProductApplicationService)
         {
-          
+            _ProductApplicationService = ProductApplicationService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var x = _ProductApplicationService.GetProduct(null);
+
+            return View(x);
         }
 
         public IActionResult About()

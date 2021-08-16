@@ -1,3 +1,9 @@
+using eShop.ApplicationService.ServiceInterfaces;
+using eShop.ApplicationService.Services;
+using eShop.DataBaseRepository;
+using eShop.DomainService.RepositoriInterfaces;
+using eShop.DomainService.ServiceInterfaces;
+using eShop.DomainService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +30,10 @@ namespace eShop.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IProductApplicationService, ProductApplicationService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductDomainService, ProductDomainService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

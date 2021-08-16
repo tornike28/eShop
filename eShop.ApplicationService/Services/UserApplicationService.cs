@@ -39,6 +39,11 @@ namespace eShop.ApplicationService.Services
             return result;
         }
 
+        public List<UserStatisticsDTO> GetUsersStatisticQuery()
+        {
+           return _UserRepository.GetUsersStatisticsQuery();
+        }
+
         public UserAuthResponseDTO Login(LoginDTO User)
         {
             UserEntity UserModel = new UserEntity();

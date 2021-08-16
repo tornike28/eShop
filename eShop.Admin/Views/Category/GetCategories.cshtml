@@ -13,6 +13,7 @@
             <th>Name</th>
             <th>DateCreated</th>
             <th>Status</th>
+            <th>რედაქტირება/წაშლა</th>
         </tr>
     </thead>
     <tbody>
@@ -24,11 +25,11 @@
                 <td>@item.DateCreated</td>
                 <td>@item.Status</td>
                 <td>
-                    <button class="btn btn-success btn-sm rounded-0" type="button" data-placement="top" data-toggle="modal" onclick="getCategory(@item.Id)" data-target="#categoryModal" title="რედაქტირება"><i class="fa fa-edit"></i></button>
-                    <form asp-controller="Category" asp-action="DeleteCategory" method="post">
+                    <button class="btn btn-success btn-sm rounded-0 d-inline-block" type="submit" style="margin-right:5px;height:38px";  data-placement="top" data-toggle="modal" onclick="getCategory(@item.Id)" data-target="#categoryModal" title="რედაქტირება"><i class="fa fa-edit"></i> რედაქტირება</button>
+                    <form class="d-inline-block" asp-controller="Category" asp-action="DeleteCategory" method="post">
                         <input type="hidden" value="@item.Id" name="CategoryID" />
                         <button type="submit" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>წაშლა
+                            <i class="fa fa-trash"></i> წაშლა
                         </button>
                     </form>
                 </td>

@@ -1,0 +1,90 @@
+﻿@model List<eShop.DataTransferObject.ProductDTO>
+<!--Section: Block Content-->
+<section class="mb-5" style="margin-top:50px">
+    <script>
+        $(document).ready(function () {
+            // MDB Lightbox Init
+            $(function () {
+                $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+            });
+        });
+    </script>
+    <div class="row">
+        <div class="col-md-6 mb-4 mb-md-0">
+
+            <div id="mdb-lightbox-ui"></div>
+
+            <div class="mdb-lightbox">
+
+                <div class="row product-gallery mx-1">
+
+                    <div class="col-12 mb-0">
+                        <figure class="view overlay rounded z-depth-1 main-img">
+                            <a href="@Model.First().ThumbnailPhoto"
+                               data-size="710x823">
+                                <img src="@Model.First().ThumbnailPhoto"
+                                     class="img-fluid z-depth-1">
+                            </a>
+                        </figure>
+                    </div>
+                   
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-6">
+
+            <h5>Fantasy T-shirt</h5>
+            <p class="mb-2 text-muted text-uppercase small">@Model.First().Name</p>
+            <p><span class="mr-1"><strong>$@Model.First().Price</strong></span></p>
+            <p class="pt-1">
+                @Model.First().Description
+            </p>
+            <div class="table-responsive">
+                <table class="table table-sm table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>CategoryName</strong></th>
+                            <td>@Model.First().CategoryName</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Quantity</strong></th>
+                            <td>@Model.First().Quantity</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
+                            <td>@Model.First().UnitName</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="table-responsive mb-2">
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                        <tr>
+                            <td class="pl-0 pb-0 w-25">Quantity</td>
+                        </tr>
+                        <tr>
+                            <td class="pl-0">
+                                <div class="def-number-input number-input safari_only mb-0">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                            class="minus"></button>
+                                    <input class="quantity" min="0" name="quantity" value="1" type="number">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                            class="plus"></button>
+                                </div>
+                            </td>
+                           
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-light btn-md mr-1 mb-2">
+                <i class="fas fa-shopping-cart pr-2"></i>Add to cart
+            </button>
+        </div>
+    </div>
+
+</section>

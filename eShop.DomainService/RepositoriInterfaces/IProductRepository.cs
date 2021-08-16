@@ -11,7 +11,7 @@ namespace eShop.DomainService.RepositoriInterfaces
 {
     public interface IProductRepository
     {
-        List<ProductDTO> GetProduct();
+        List<ProductDTO> GetProduct(Guid? productID);
 
         void AddProduct(ProductEntity product, List<int> categories, List<string> Images);
         bool DeleteProduct(Guid productID);

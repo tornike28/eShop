@@ -15,6 +15,7 @@
             <th>Role</th>
             <th>IsActive</th>
             <th>DateCreated</th>
+            <th>რედაქტირება/წაშლა</th>
         </tr>
     </thead>
     <tbody>
@@ -29,16 +30,16 @@
                 <td>@item.IsActive</td>
                 <td>@item.DateCreated</td>
                 <td>
-                    <button class="btn btn-success btn-sm rounded-0" type="button" data-placement="top" data-toggle="modal" data-target="#userModal" title="რედაქტირება" data-id="@item.ID"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-success btn-sm rounded-0 d-inline-block" style="margin-bottom:5px; height:38px" type="button" data-placement="top" data-toggle="modal" data-target="#userModal" title="რედაქტირება" data-id="@item.ID"><i class="fa fa-edit"></i> რედაქტირება</button>
                     @*<form asp-controller="User" asp-action="DeleteUser" method="post">
             <input type="hidden" value="@item.ID" name="UserID" />
             <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="წაშლა" data-id="@item.ID" asp-controller="User" asp-action="DeleteUser"><i class="fa fa-trash"></i></button>
 
         </form>*@
-                    <form asp-controller="User" asp-action="DeleteUser" method="post">
+                    <form class="d-inline-block" asp-controller="User" asp-action="DeleteUser" method="post">
                         <input type="hidden" value="@item.ID" name="UserID" />
                         <button type="submit" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>წაშლა
+                            <i class="fa fa-trash"></i> წაშლა
                         </button>
                     </form>
                 </td>

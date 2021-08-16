@@ -8,21 +8,36 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Web;
+using static eShop.Admin.Models.DataPoint;
 
 namespace eShop.Admin.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        IUserApplicationService  _UserApplicationService;
+        public HomeController(IUserApplicationService UserApplicationService)
         {
-
+            _UserApplicationService = UserApplicationService;
         }
 
         [Route("")]
         [Authorize]
         public IActionResult Index()
         {
-            return View();
+            List<DataPoint> DataPoints = new List<DataPoint>();
+           var products = _UserApplicationService.GetUsersStatisticQuery();
+         
+            foreach (var item in products)
+            {
+                var dataPoint = new DataPoint(item.Month, item.NumberOfUsers);
+                DataPoints.Add(dataPoint);
+            }
+       
+
+            ViewBag.DataPoints = JsonConvert.SerializeObject(DataPoints);
+            return View(DataPoints);
         }
 
         [Authorize]
