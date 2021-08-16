@@ -1,0 +1,73 @@
+﻿@model eShop.Admin.Models.AddProductModel
+
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-5">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header"><h3 class="text-center font-weight-light my-4">პროდუქტის დამატება</h3></div>
+            <div class="card-body">
+                <form action="/Product/AddProduct" enctype="multipart/form-data" method="post">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" name="ProductName" id="ProductName" type="text" placeholder="პროდუქტის დასახელება" />
+                        <label for="inputEmail">პროდუქტის დასახელება</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" name="Price" id="Price" placeholder="ფასი" />
+                        <label for="inputEmail">ფასი</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" name="Quantity" id="Quantity" placeholder="რაოდენობა" />
+                        <label for="inputEmail">რაოდენობა</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" name="Description" id="Description" type="text" placeholder="აღწერა" />
+                        <label for="inputPassword">აღწერა</label>
+                    </div>
+                    <select class="form-select" aria-label="Default select example" name="UnitID">
+                        <option selected>UnitID</option>
+                        <option value="0">Kg</option>
+                        <option value="1">Lbs</option>
+                        <option value="2">Liter</option>
+                    </select>
+                    <input type="file" name="ImageFiles" multiple required />
+                    <div>
+                        <button type="submit" style="margin-top:15px" class="btn btn-primary" asp-controller="Product" asp-action="AddProduct">Upload File</button>
+                    </div>
+                    @*<div class="form-floating mb-3">
+                            <input asp-for="ImageFile" class="form-control" name="ImageFile" id="ImageFile" placeholder="ფოტოს ატვირთვა" />
+                            <label asp-for="ImageFile" for="inputPassword">ფოტოს ატვირთვა</label>
+                        </div>*@
+                    @*@using (Html.BeginForm("UploadImages", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="row">
+                                <span class="span4">
+                                    <input type="file" name="uploadImages" multiple="multiple" class="input-files" />
+                                </span>
+                                <span class="span2">
+                                    <input type="submit" name="button" value="Upload" class="btn btn-upload" />
+                                </span>
+                            </div>
+                        }*@
+                </form>
+                @*<div>
+                                        @{ if (Model != null)
+                                            {
+                                                if (Model.IsError)
+                                                {
+                                                    foreach (var message in Model.ErrorMessages)
+                                                    {
+                                <h1 style="color:red">@message</h1> }
+                        }
+                        else
+                        {
+                    <h1 style="color:forestgreen">User Has been added</h1> }
+                    } }
+                                    </div>*@
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

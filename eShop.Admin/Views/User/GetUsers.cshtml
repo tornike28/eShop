@@ -1,0 +1,48 @@
+﻿@model List<eShop.DataTransferObject.UserQueryDTO>
+
+
+<a class="btn btn-primary" style="margin-bottom:10px" role="button" asp-controller="User" asp-action="UserRegistration">
+    მომხმარებლების რეგისტრაცია
+</a>
+ 
+<table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>IsActive</th>
+            <th>DateCreated</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Email</td>
+                <td>@item.Role</td>
+                <td>@item.IsActive</td>
+                <td>@item.DateCreated</td>
+                <td>
+                    <button class="btn btn-success btn-sm rounded-0" type="button" data-placement="top" data-toggle="modal" data-target="#userModal" title="რედაქტირება" data-id="@item.ID"><i class="fa fa-edit"></i></button>
+                    @*<form asp-controller="User" asp-action="DeleteUser" method="post">
+            <input type="hidden" value="@item.ID" name="UserID" />
+            <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="წაშლა" data-id="@item.ID" asp-controller="User" asp-action="DeleteUser"><i class="fa fa-trash"></i></button>
+
+        </form>*@
+                    <form asp-controller="User" asp-action="DeleteUser" method="post">
+                        <input type="hidden" value="@item.ID" name="UserID" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>წაშლა
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

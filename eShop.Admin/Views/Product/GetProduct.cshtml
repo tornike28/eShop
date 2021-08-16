@@ -1,0 +1,46 @@
+﻿@model List<eShop.DataTransferObject.ProductDTO>
+
+
+<a class="btn btn-primary" style="margin-bottom:10px" role="button" asp-controller="Product" asp-action="AddProduct">
+    პროდუქტის დამატება
+</a>
+
+<table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>ThumbnailPhoto</th>
+            <th>ProductId</th>
+            <th>ProductName</th>
+            <th>CategoryName</th>
+            <th>Price</th>
+            <th>UnitName</th>
+            <th>Quantity</th>
+            <th>Description</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td> <img style="height:80px" src="@item.ThumbnailPhoto" alt="Image" /></td>
+            <td>@item.ProductId</td>
+            <td>@item.Name</td>
+            <td>@item.CategoryName</td>
+            <td>@item.Price</td>
+            <td>@item.UnitName</td>
+            <td>@item.Quantity</td>
+            <td>@item.Description</td>
+            <td>
+                <button class="btn btn-success btn-sm rounded-0" type="button" data-placement="top" data-toggle="modal" data-target="#categoryModal" title="რედაქტირება"><i class="fa fa-edit"></i></button>
+                <form asp-controller="Product" asp-action="DeleteProduct" method="post">
+                    <input type="hidden" value="@item.ProductId" name="ProductID" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i>წაშლა
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

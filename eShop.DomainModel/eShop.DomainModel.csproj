@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Aggreagates\**" />
+    <EmbeddedResource Remove="Aggreagates\**" />
+    <None Remove="Aggreagates\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ValueObjects\" />
+  </ItemGroup>
+
+</Project>

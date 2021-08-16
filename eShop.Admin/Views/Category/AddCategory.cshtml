@@ -1,0 +1,30 @@
+﻿@model eShop.DataTransferObject.ResultDTO
+
+
+<form action="/Category/AddCategory" method="post">
+    <div class="form-floating mb-3">
+        <input class="form-control" name="CategoryName" id="CategoryName" type="text" placeholder="კატეგორიის სახელი" />
+        <label for="CategoryName">კატეგორიის სახელი</label>
+        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+            <input type="submit" value="დამატება" class="btn btn-primary">
+        </div>
+    </div>
+</form>
+<div>
+    @{ if (Model != null)
+        {
+            if (Model.IsError)
+            {
+                foreach (var message in Model.ErrorMessages)
+                {
+                    <h1 style="color:red">@message</h1> }
+            }
+            else
+            {
+                <h1 style="color:forestgreen">Product Has been added</h1> }
+        }
+    }
+</div>
+
+
+
