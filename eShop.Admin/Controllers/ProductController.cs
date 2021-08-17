@@ -70,7 +70,15 @@ namespace eShop.Admin.Controllers
                 Quantity = productModel.Quantity,
                 UnitID = productModel.UnitID
             }, fileNames);
-            return View();
+            if (query.IsError)
+            {
+                return Content($"{query.ErrorMessages.First()}");
+            }
+            else
+            {
+                return RedirectToAction(controllerName: "Product", actionName: "GetProduct");
+            }
+           
         }
 
         [HttpPost]

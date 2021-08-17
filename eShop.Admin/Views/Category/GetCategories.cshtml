@@ -1,7 +1,11 @@
 ﻿@model List<eShop.DataTransferObject.CategoryDTO>
 
     <script src="~/js/category.js"></script>
-
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+</script>
 <a class="btn btn-primary" style="margin-bottom:10px" role="button" asp-controller="Category" asp-action="AddCategory">
     კატეგორიის დამატება
 </a>

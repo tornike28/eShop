@@ -1,6 +1,62 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    Layout = "";
 }
-<h1>@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>eShop.ge -ჩვენს შესახებ</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/site.css" rel="stylesheet" />
+</head>
+<body style="background-image:url(https://www.teahub.io/photos/full/89-893355_online-shopping-ecommerce-ss-.png)">
+  
 
-<p>Use this page to detail your site's privacy policy.</p>
+
+    <style>
+        .logo {
+            font-size: 200px;
+        }
+    </style>
+
+    <div class="container-fluid col-sm-5" style="margin-top:30px">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>About Company Page</h2>
+                <h4>Our eShop or electronic store 
+               is “the place” where a company can sell their products or services using digital networks.</h4>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-signal logo"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-grey"  style="margin-top:500px">
+        <div class="row">
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-globe logo"></span>
+            </div>
+            <div class="col-sm-8">
+                <h2><strong>About Us:</strong> </h2>
+                <h4><strong>Email:</strong> EShopFake@Gmail.com</h4>
+                <p><strong>PhoneNumber:</strong> +995 10 20 30</p>
+                <button class="btn btn-default btn-lg" style="color:black">Get in Touch</button>
+                <form class="d-inline-block" asp-controller="Home" asp-action="Index" method="post">
+                    <button type="submit" class="btn btn-default btn-lg" style="color:black">Main Page</button>
+                </form>
+            </div>
+        </div>
+      
+    </div>
+</body>
+</html>
