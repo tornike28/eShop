@@ -30,7 +30,7 @@
                 <td>@item.IsActive</td>
                 <td>@item.DateCreated</td>
                 <td>
-                    <button class="btn btn-success btn-sm rounded-0 d-inline-block" style="margin-bottom:5px; height:38px" type="button" data-placement="top" data-toggle="modal" data-target="#userModal" title="რედაქტირება" data-id="@item.ID"><i class="fa fa-edit"></i> რედაქტირება</button>
+                    <button class="btn btn-success btn-sm rounded-0 d-inline-block" type="submit" style="margin-right:5px;height:38px" ; data-placement="top" data-toggle="modal" onclick="getUser(@item.ID)" data-target="#UserModal" title="რედაქტირება"><i class="fa fa-edit"></i> რედაქტირება</button>
                     @*<form asp-controller="User" asp-action="DeleteUser" method="post">
             <input type="hidden" value="@item.ID" name="UserID" />
             <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="წაშლა" data-id="@item.ID" asp-controller="User" asp-action="DeleteUser"><i class="fa fa-trash"></i></button>
@@ -47,3 +47,34 @@
         }
     </tbody>
 </table>
+<div class="modal fade" id="UserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">პროდუქტი</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="FirstName" id="FirstName" type="text" placeholder="სახელი" />
+                    <label>სახელი</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="LastName" id="LastName" type="text" placeholder="გვარი" />
+                    <label>გვარი</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="Email" id="Email" type="email" placeholder="მეილი" />
+                    <label>მეილი</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="Quantity" id="Quantity" type="text" placeholder="რაოდენობა" />
+                    <label>რაოდენობა</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn btn-danger">გაუქმება</a>
+                <a href="" class="btn btn-success">დამახსოვრება</a>
+            </div>
+        </div>
+    </div>
+</div>

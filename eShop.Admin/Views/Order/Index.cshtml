@@ -1,0 +1,31 @@
+﻿
+
+<table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>IsActive</th>
+            <th>DateCreated</th>
+            <th>რედაქტირება/წაშლა</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>@item.ID</td>
+    <td>@item.FirstName</td>
+    <td>@item.LastName</td>
+    <td>@item.Email</td>
+    <td>@item.Role</td>
+    <td>@item.IsActive</td>
+    <td>@item.DateCreated</td>
+    <td>
+    </td>
+</tr>}
+    </tbody>
+</table>

@@ -1,6 +1,5 @@
 ﻿@model List<eShop.DataTransferObject.ProductDTO>
 
-
 <a class="btn btn-primary" style="margin-bottom:10px" role="button" asp-controller="Product" asp-action="AddProduct">
     პროდუქტის დამატება
 </a>
@@ -22,25 +21,63 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td> <img style="height:80px" src="@item.ThumbnailPhoto" alt="Image" /></td>
-            <td>@item.ProductId</td>
-            <td>@item.Name</td>
-            <td>@item.CategoryName</td>
-            <td>@item.Price</td>
-            <td>@item.UnitName</td>
-            <td>@item.Quantity</td>
-            <td>@item.Description</td>
-            <td>
-                <button class="btn btn-success btn-sm rounded-0 d-inline-block" style="margin-top:10px;margin-bottom:5px;height:38px" type="button" data-placement="top" data-toggle="modal" data-target="#categoryModal" title="რედაქტირება"><i class="fa fa-edit"></i> რედაქტირება</button>
-                <form class="d-inline-block" asp-controller="Product" asp-action="DeleteProduct" method="post">
-                    <input type="hidden" value="@item.ProductId" name="ProductID" />
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fa fa-trash"></i> წაშლა
-                    </button>
-                </form>
-            </td>
-        </tr>
-        }
+<tr>
+    <td> <img style="height:80px" src="@item.ThumbnailPhoto" alt="Image" /></td>
+    <td>@item.ProductId</td>
+    <td>@item.Name</td>
+    <td>@item.CategoryName</td>
+    <td>@item.Price</td>
+    <td>@item.UnitName</td>
+    <td>@item.Quantity</td>
+    <td>@item.Description</td>
+    <td>
+        <button class="btn btn-success btn-sm rounded-0 d-inline-block" type="submit" style="margin-right:5px;height:38px" ; data-placement="top" data-toggle="modal" onclick="getProduct(@item.ProductId)" data-target="#productModal" title="რედაქტირება"><i class="fa fa-edit"></i> რედაქტირება</button>
+        <form class="d-inline-block" asp-controller="Product" asp-action="DeleteProduct" method="post">
+            <input type="hidden" value="@item.ProductId" name="ProductID" />
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-trash"></i> წაშლა
+            </button>
+        </form>
+    </td>
+</tr>}
     </tbody>
 </table>
+<div class="modal fade" id="productModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">პროდუქტი</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="ProductName" id="ProductName" type="text" placeholder="პროდუქტის დასახელება" />
+                    <label>პროდუქტის დასახელება</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="CategoryName" id="CategoryName" type="text" placeholder="კატეგორია" />
+                    <label>კატეგორია</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="Price" id="Price" type="number" placeholder="ფასი" />
+                    <label>ფასი</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="Quantity" id="Quantity" type="text" placeholder="რაოდენობა" />
+                    <label>რაოდენობა</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="UnitName" id="UnitName" type="text" placeholder="ერთეულის საზომი" />
+                    <label>ერთეულის საზომი</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="Description" id="Description" type="text" placeholder="აღწერა" />
+                    <label>აღწერა</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn btn-danger">გაუქმება</a>
+                <a href="" class="btn btn-success">დამახსოვრება</a>
+            </div>
+        </div>
+    </div>
+</div>
