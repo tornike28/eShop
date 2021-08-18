@@ -34,6 +34,7 @@ namespace eShop.Admin
             services.AddScoped<IUserApplicationService, UserApplicationService>();
             services.AddScoped<IUserDomainService, UserDomainService>();
             services.AddScoped<IUserRepository, UserRepostiory>();
+
             services.AddScoped<IProductApplicationService, ProductApplicationService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductDomainService, ProductDomainService>();
@@ -41,6 +42,10 @@ namespace eShop.Admin
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryApplicationService, CategoryApplicationService>();
             services.AddScoped<ICategoryDomainService, CategoryDomainService>();
+
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderApplicationService, OrderApplicationService>();
 
             services.AddHttpContextAccessor();
 

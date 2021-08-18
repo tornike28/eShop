@@ -24,7 +24,7 @@ namespace eShop.Admin.Controllers
         [Authorize]
         public IActionResult GetProduct()
         {
-            var query = _ProductApplicationService.GetProduct(null);
+            var query = _ProductApplicationService.GetProduct(null, null);
 
 
             return View(query);

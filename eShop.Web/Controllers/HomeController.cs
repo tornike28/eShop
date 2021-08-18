@@ -18,9 +18,11 @@ namespace eShop.Web.Controllers
             _ProductApplicationService = ProductApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page)
         {
-            var x = _ProductApplicationService.GetProduct(null);
+            var x = _ProductApplicationService.GetProduct(page,null);
+            ViewBag.PreviousPage = page - 1;
+            ViewBag.NextPage = page + 1;
 
             return View(x);
         }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace eShop.DataBaseRepository
 {
@@ -15,28 +16,41 @@ namespace eShop.DataBaseRepository
     {
         public void AddNewUser(UserEntity user, int roleID)
         {
-            using (eShopDBContext context = new eShopDBContext())
+            using (var scope = new TransactionScope())
             {
-                User newUser = new User()
+                using (eShopDBContext context = new eShopDBContext())
                 {
-                    Id = user.Id,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    PasswordHash = user.PasswordHash,
-                    IsActive = true,
-                    LastName = user.LastName,
-                };
-                UsersInRole usersInRole = new UsersInRole()
-                {
-                    RoleId = roleID,
-                    UserId = user.Id
-                };
+                    try
+                    {
 
-                context.UsersInRoles.Add(usersInRole);
-                context.Users.Add(newUser);
+                        User newUser = new User()
+                        {
+                            Id = user.Id,
+                            Email = user.Email,
+                            FirstName = user.FirstName,
+                            PasswordHash = user.PasswordHash,
+                            IsActive = true,
+                            LastName = user.LastName,
+                        };
+                        UsersInRole usersInRole = new UsersInRole()
+                        {
+                            RoleId = roleID,
+                            UserId = user.Id
+                        };
 
-                context.SaveChanges();
+                        context.UsersInRoles.Add(usersInRole);
+                        context.Users.Add(newUser);
+
+                        context.SaveChanges();
+                        scope.Complete();
+                    }
+                    catch (Exception)
+                    {
+                        scope.Dispose();
+                    }
+                }
             }
+
         }
 
         public bool CheckSessionID(Guid SessionID)

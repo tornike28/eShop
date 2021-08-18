@@ -1,4 +1,4 @@
-﻿@model List<eShop.DataTransferObject.ProductDTO>
+﻿@model eShop.Web.Models.ProductDetailsModel
 <!--Section: Block Content-->
 <section class="mb-5" style="margin-top:50px">
     <script>
@@ -14,47 +14,48 @@
 
             <div id="mdb-lightbox-ui"></div>
 
-            <div class="mdb-lightbox">
+            <div class="mdb-lightbox" >
 
                 <div class="row product-gallery mx-1">
 
                     <div class="col-12 mb-0">
                         <figure class="view overlay rounded z-depth-1 main-img">
-                            <a href="@Model.First().ThumbnailPhoto"
+                            <a href="@Model.ProductDetailInfo.First().ThumbnailPhoto"
                                data-size="710x823">
-                                <img src="@Model.First().ThumbnailPhoto"
+                                <img style="height: 630px; width: 630px" src="@Model.ProductDetailInfo.First().ThumbnailPhoto"
                                      class="img-fluid z-depth-1">
                             </a>
                         </figure>
                     </div>
-                   
+
                 </div>
 
             </div>
 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
 
-            <h5>Fantasy T-shirt</h5>
-            <p class="mb-2 text-muted text-uppercase small">@Model.First().Name</p>
-            <p><span class="mr-1"><strong>$@Model.First().Price</strong></span></p>
+            <h5 style="font-weight:bold">დასახელება</h5>
+            <p style="font-weight:bold" class="mb-2 text-muted text-uppercase small">@Model.ProductDetailInfo.First().Name</p>
+            <p><span class="mr-1"><strong>₾@Model.ProductDetailInfo.First().Price</strong></span></p>
+            <h5 style="font-weight:bold" >აღწერა</h5>
             <p class="pt-1">
-                @Model.First().Description
+                @Model.ProductDetailInfo.First().Description
             </p>
             <div class="table-responsive">
                 <table class="table table-sm table-borderless mb-0">
                     <tbody>
                         <tr>
-                            <th class="pl-0 w-25" scope="row"><strong>CategoryName</strong></th>
-                            <td>@Model.First().CategoryName</td>
+                            <th class="pl-0 w-25" scope="row"><strong>კატეგორიის დასახელება</strong></th>
+                            <td>@Model.ProductDetailInfo.First().CategoryName</td>
                         </tr>
                         <tr>
-                            <th class="pl-0 w-25" scope="row"><strong>Quantity</strong></th>
-                            <td>@Model.First().Quantity</td>
+                            <th class="pl-0 w-25" scope="row"><strong>რაოდენობა</strong></th>
+                            <td>@Model.ProductDetailInfo.First().Quantity</td>
                         </tr>
                         <tr>
-                            <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
-                            <td>@Model.First().UnitName</td>
+                            <th class="pl-0 w-25" scope="row"><strong>ერთეული</strong></th>
+                            <td>@Model.ProductDetailInfo.First().UnitName</td>
                         </tr>
                     </tbody>
                 </table>
@@ -64,27 +65,56 @@
                 <table class="table table-sm table-borderless">
                     <tbody>
                         <tr>
-                            <td class="pl-0 pb-0 w-25">Quantity</td>
-                        </tr>
-                        <tr>
-                            <td class="pl-0">
-                                <div class="def-number-input number-input safari_only mb-0">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                            class="minus"></button>
-                                    <input class="quantity" min="0" name="quantity" value="1" type="number">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                            class="plus"></button>
-                                </div>
-                            </td>
-                           
+                            <td class="pl-0 pb-0 w-25">რაოდენობა</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-light btn-md mr-1 mb-2">
-                <i class="fas fa-shopping-cart pr-2"></i>Add to cart
-            </button>
+            <div class="d-flex">
+                <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
+                <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                    <i class="bi-cart-fill me-1"></i>
+                    კალათაში დამატება
+                </button>
+            </div>
         </div>
     </div>
 
+
+
+</section>
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">მსგავსი პროდუქტები</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @{ foreach (var item in Model.RelatedProductsInfo)
+                {
+                    <div class="col mb-5 d-inline-block">
+                                    <div class="card h-100">
+                                        <!-- Product image-->
+                                        <form class="d-inline-block" asp-controller="Product" asp-action="ProductDetails" method="post">
+                                        <input type="hidden" name="CategoryName" value="@item.CategoryName" />
+                                        <input type="hidden" value="@item.UniqueID" name="ProductID" />
+                                        <button style="border:none"><img class="card-img-top" src="@item.ThumbnailPhoto" style="height:300px" alt="სურათი" /></button>
+                                        </form>
+                                        <!-- Product details-->
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h5 class="fw-bolder">@item.Name</h5>
+                                                <!-- Product price-->
+                                                $@item.Price
+                                            </div>
+                                        </div>
+                                        <!-- Product actions-->
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                                        </div>
+                                    </div>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
 </section>

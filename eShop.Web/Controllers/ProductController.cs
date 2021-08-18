@@ -1,4 +1,5 @@
 ﻿using eShop.ApplicationService.ServiceInterfaces;
+using eShop.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,15 @@ namespace eShop.Web.Controllers
             _ProductApplicationService = ProductApplicationService;
         }
 
-        public IActionResult ProductDetails(Guid ProductID)
+        public IActionResult ProductDetails(Guid ProductID,string CategoryName)
         {
-            var result = _ProductApplicationService.GetProduct(ProductID);
+            var products = _ProductApplicationService.GetProduct(null,ProductID);
+            var relatedProducts = _ProductApplicationService.RelatedProductsQuery(CategoryName);
+            var result = new ProductDetailsModel
+            {
+                ProductDetailInfo = products,
+                RelatedProductsInfo = relatedProducts
+            };
             return View(result);
         }
     }

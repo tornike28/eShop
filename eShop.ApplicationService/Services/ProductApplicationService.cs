@@ -24,9 +24,9 @@ namespace eShop.ApplicationService.Services
             _ProductDomainService = ProductDomainService;
         }
 
-        public List<ProductDTO> GetProduct(Guid? productID)
+        public List<ProductDTO> GetProduct(int? page, Guid? productID)
         {
-            return _ProductRepository.GetProduct(productID);
+            return _ProductRepository.GetProduct(page, productID);
         }
 
         public ResultDTO AddProduct(ProductDTO product,  List<string> images)
@@ -42,6 +42,11 @@ namespace eShop.ApplicationService.Services
         {
             return _ProductDomainService.DeleteProduct(ProductID);
 
+        }
+
+        public List<ProductDTO> RelatedProductsQuery(string categoryName)
+        {
+            return _ProductRepository.RelatedproductsQuery(categoryName);
         }
     }
 }

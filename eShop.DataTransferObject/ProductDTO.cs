@@ -31,7 +31,7 @@ namespace eShop.DataTransferObject
         public int UnitID { get; set; }
 
         public DateTime CreateDate { get; set; }
-
+        public int NumberOfPages { get; set; }
         public List<string> ImageFiles { get; set; }
         public Guid UniqueID { get; set; }
     }

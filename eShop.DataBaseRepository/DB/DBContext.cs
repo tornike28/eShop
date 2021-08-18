@@ -181,7 +181,7 @@ namespace eShop.DataBaseRepository.DB
 
                 entity.Property(e => e.ImagePath)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(500);
 
                 entity.Property(e => e.IsThumbnail).HasDefaultValueSql("((0))");
 

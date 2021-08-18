@@ -15,13 +15,18 @@ namespace eShop.DataBaseRepository.Repositories
         {
             using (eShopDBContext context = new eShopDBContext())
             {
-                var query = (from c in context.Orders
-                             select new CategoryDTO
+                var query = (from o in context.Orders
+                             join u in context.Users on o.UserId equals u.Id
+                             join ua in context.UserAddresses on o.UserAddressId equals ua.Id
+                             join os in context.OrderStatuses on o.OrderStatusId equals os.Id
+                             select new OrderQueryDTO
                              {
-                                 Id = c.Id,
-                                 CategoryName = c.Name,
-                                 DateCreated = c.DateCreated,
-                                 Status = c.DateDeleted != null ? Status.Deleted : Status.Active
+                                OrderID = o.Id,
+                                UserMail = u.Email,
+                                UserAddress = ua.FullAddress,
+                                OrderStatus = os.Name,
+                                TotalPrice = o.TotalPrice,
+                                DateCreated = o.DateCreated
                              }).ToList();
 
                 return query;
