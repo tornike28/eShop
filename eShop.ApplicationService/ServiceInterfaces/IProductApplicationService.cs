@@ -17,5 +17,6 @@ namespace eShop.ApplicationService.ServiceInterfaces
         List<UnitDTO> GetUnits();
         Task<List<string>> UploadImages(List<IFormFile> imageFiles);
         List<ProductDTO> GetProduct(int page = 1);
+        bool AddToCart(Guid productId);
     }
 }

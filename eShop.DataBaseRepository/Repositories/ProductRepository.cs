@@ -227,10 +227,48 @@ namespace eShop.DataBaseRepository
                                  Quantity = p.Quantity,
                                  UnitName = u.Name,
                                  ThumbnailPhoto = pp.ImagePath,
-                                 NumberOfPages =  (context.ProductsInCategories.Count()) / pageSize
-                             }).Skip((page-1) * pageSize).Take(pageSize).ToList();
+                                 NumberOfPages = (context.ProductsInCategories.Count()) / pageSize
+                             }).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
                 return query;
+            }
+        }
+
+        public bool AddToCart(OrderEntity orderEntity)
+        {
+            using (var scope = new TransactionScope())
+            {
+                using (eShopDBContext context = new eShopDBContext())
+                {
+                    try
+                    {
+                        Order newProduct = new Order()
+                        {
+                            Id = orderEntity.Id,
+                            TotalPrice = +orderEntity.TotalPrice,
+                            UserId = orderEntity.UserID,
+                            UserAddressId = orderEntity.UserAddressID,
+                            OrderStatusId = ,
+                            DateCreated  = orderEntity.DateCreated
+                        };
+
+
+
+                        //context.Products.Add(newProduct);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        scope.Dispose();
+                        return false;
+                    }
+                    finally
+                    {
+                        scope.Complete();
+
+                    }
+                }
             }
         }
     }

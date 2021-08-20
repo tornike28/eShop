@@ -14,4 +14,8 @@
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eShop.DataTransferObject\eShop.DataTransferObject.csproj" />
+  </ItemGroup>
+
 </Project>

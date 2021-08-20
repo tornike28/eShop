@@ -86,5 +86,10 @@ namespace eShop.ApplicationService.Services
         {
             return _ProductRepository.GetProduct(page);
         }
+
+        public bool AddToCart(Guid productId)
+        {
+            return _ProductRepository.AddToCart(productId);
+        }
     }
 }

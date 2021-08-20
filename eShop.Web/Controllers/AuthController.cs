@@ -8,7 +8,7 @@ namespace eShop.Web.Controllers
 {
     public class AuthController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Authorization()
         {
             return View();
         }
