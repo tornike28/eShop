@@ -47,7 +47,7 @@ namespace eShop.DomainService.Services
                 return validationResponse;
             }
         }
-        public ResultDTO Registration(UserEntity user, int roleID)
+        public ResultDTO Registration(UserEntity user)
         {
             var validationResponse = new List<string>();
             validationResponse = user.IsValid(UserValidationType.Registration);
@@ -67,12 +67,9 @@ namespace eShop.DomainService.Services
             }
             else
             {
-                _UserRepository.AddNewUser(user, roleID);
+                _UserRepository.AddNewUser(user);
                 return new ResultDTO() { IsError = false };
             }
-
-
-
         }
     }
 }

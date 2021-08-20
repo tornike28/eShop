@@ -66,9 +66,9 @@ namespace eShop.DataBaseRepository.Repositories
             }
         }
 
-        public List<CategoryDTO> GetCategories(int categoryID = 0)
+        public List<CategoryDTO> GetCategories(int? categoryID = null)
         {
-            if (categoryID == 0)
+            if (categoryID == null)
             {
                 using (eShopDBContext context = new eShopDBContext())
                 {

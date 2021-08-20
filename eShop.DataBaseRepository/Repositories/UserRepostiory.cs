@@ -14,7 +14,7 @@ namespace eShop.DataBaseRepository
 {
     public class UserRepostiory : IUserRepository
     {
-        public void AddNewUser(UserEntity user, int roleID)
+        public void AddNewUser(UserEntity user)
         {
             using (var scope = new TransactionScope())
             {
@@ -34,7 +34,7 @@ namespace eShop.DataBaseRepository
                         };
                         UsersInRole usersInRole = new UsersInRole()
                         {
-                            RoleId = roleID,
+                            RoleId = 0,
                             UserId = user.Id
                         };
 
@@ -52,7 +52,6 @@ namespace eShop.DataBaseRepository
             }
 
         }
-
         public bool CheckSessionID(Guid SessionID)
         {
             using (eShopDBContext context = new eShopDBContext())

@@ -20,9 +20,9 @@
 
                     <div class="col-12 mb-0">
                         <figure class="view overlay rounded z-depth-1 main-img">
-                            <a href="@Model.ProductDetailInfo.First().ThumbnailPhoto"
+                            <a href="@Model.ProductDetailInfo.ThumbnailPhoto"
                                data-size="710x823">
-                                <img style="height: 630px; width: 630px" src="@Model.ProductDetailInfo.First().ThumbnailPhoto"
+                                <img style="height: 630px; width: 630px" src="@Model.ProductDetailInfo.ThumbnailPhoto"
                                      class="img-fluid z-depth-1">
                             </a>
                         </figure>
@@ -36,26 +36,26 @@
         <div class="col-md-2">
 
             <h5 style="font-weight:bold">დასახელება</h5>
-            <p style="font-weight:bold" class="mb-2 text-muted text-uppercase small">@Model.ProductDetailInfo.First().Name</p>
-            <p><span class="mr-1"><strong>₾@Model.ProductDetailInfo.First().Price</strong></span></p>
+            <p style="font-weight:bold" class="mb-2 text-muted text-uppercase small">@Model.ProductDetailInfo.Name</p>
+            <p><span class="mr-1"><strong>₾@Model.ProductDetailInfo.Price</strong></span></p>
             <h5 style="font-weight:bold" >აღწერა</h5>
             <p class="pt-1">
-                @Model.ProductDetailInfo.First().Description
+                @Model.ProductDetailInfo.Description
             </p>
             <div class="table-responsive">
                 <table class="table table-sm table-borderless mb-0">
                     <tbody>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>კატეგორიის დასახელება</strong></th>
-                            <td>@Model.ProductDetailInfo.First().CategoryName</td>
+                            <td>@Model.ProductDetailInfo.CategoryName</td>
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>რაოდენობა</strong></th>
-                            <td>@Model.ProductDetailInfo.First().Quantity</td>
+                            <td>@Model.ProductDetailInfo.Quantity</td>
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>ერთეული</strong></th>
-                            <td>@Model.ProductDetailInfo.First().UnitName</td>
+                            <td>@Model.ProductDetailInfo.UnitName</td>
                         </tr>
                     </tbody>
                 </table>

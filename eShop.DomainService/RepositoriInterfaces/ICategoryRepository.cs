@@ -10,7 +10,7 @@ namespace eShop.DomainService.RepositoriInterfaces
 {
     public interface ICategoryRepository
     {
-        List<CategoryDTO> GetCategories(int categoryID);
+        List<CategoryDTO> GetCategories(int? categoryID = null);
         void AddCategory(CategoryEntity category);
         bool CheckCategoryExists(string categoryName);
         bool DeleteCategory(int categoryID);

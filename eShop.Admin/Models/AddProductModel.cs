@@ -14,6 +14,9 @@ namespace eShop.Admin.Models
         public string Description { get; set; }
         public int UnitID { get; set; }
         public List<IFormFile> ImageFiles { get; set; }
-        public int CategoryID { get; set; }
+        public List<int> CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public string UnitName { get; set; }
+
     }
 }

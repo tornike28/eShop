@@ -29,7 +29,7 @@
     <td>@item.DateCreated</td>
     <td>@item.Status</td>
     <td>
-        <button class="btn btn-success btn-sm rounded-0 d-inline-block" type="submit" style="margin-right:5px;height:38px" ; data-placement="top" data-toggle="modal" onclick="getCategory(@item.Id)" data-target="#categoryModal" title="რედაქტირება"><i class="fa fa-edit"></i> რედაქტირება</button>
+        <button id="editBtn" style="margin-right:5px;height:38px" class="btn btn-success btn-sm rounded-0" type="button" data-placement="top" data-toggle="modal" data-target="#categoryModal" title="რედაქტირება" data-id="@item.Id" onclick="getcategory('@item.Id')"><span class="iconify" data-icon="bi:pencil"></span>რედაქტირება</button>
         <form class="d-inline-block" asp-controller="Category" asp-action="DeleteCategory" method="post">
             <input type="hidden" value="@item.Id" name="CategoryID" />
             <button type="submit" class="btn btn-danger">
@@ -41,22 +41,28 @@
 }
     </tbody>
 </table>
-<div class="modal fade" id="categoryModal">
-    <div class="modal-dialog">
+
+
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLongTitle">კატეგორიის რედაქტირება</h3>
+                <h5 class="modal-title" id="exampleModalLongTitle">კატეგორიის რედაქტირება</h5>
             </div>
             <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input class="form-control" name="Name" id="Name" type="text" placeholder="სახელი" />
-                    <label>სახელი</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="" class="btn btn-danger">გაუქმება</a>
-                <a href="" class="btn btn-success">დამახსოვრება</a>
+
+                <form enctype="multipart/form-data" asp-controller="Category" asp-action="UpdateCategory" method="post">
+                    <div class="mb-3">
+                        <label for="Name" class="col-form-label">სახელი</label>
+                        <input type="text" class="form-control" id="Name" name="Name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">გაუქმება</button>
+                        <input type="submit" class="btn btn-primary" value="შენახვა">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+<script src="~/js/category.js"></script>

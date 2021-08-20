@@ -33,7 +33,7 @@ namespace eShop.DataBaseRepository
                             Quantity = product.Quantity,
                             Description = product.Description,
                             Price = product.Price,
-                            UnitId = 1,
+                            UnitId = product.UnitId,
                             DateCreated = DateTime.Now,
                         };
                         foreach (var image in Images)
@@ -55,26 +55,26 @@ namespace eShop.DataBaseRepository
                             };
                             ProductsInCategories.Add(ProductInCategory);
                         }
+
                         context.Products.Add(newProduct);
                         context.ProductImages.AddRange(ProductImages);
                         context.ProductsInCategories.AddRange(ProductsInCategories);
                         context.SaveChanges();
 
-                        //scope.Complete();
+
                     }
                     catch (Exception)
                     {
-                        
+                        scope.Dispose();
                     }
                     finally
                     {
-                        scope.Dispose();
+                        scope.Complete();
                     }
                 }
             }
 
         }
-
         public bool DeleteProduct(Guid productID)
         {
             using (eShopDBContext context = new eShopDBContext())
@@ -95,11 +95,9 @@ namespace eShop.DataBaseRepository
                 }
             }
         }
-
-        public List<ProductDTO> GetProduct(int? page, Guid? productID)
+        public List<ProductDTO> AdminGetProduct(Guid? productID = null)
         {
-            int pageSize = 8;
-            if (productID == null && page == null)
+            if (productID == null)
             {
                 using (eShopDBContext context = new eShopDBContext())
                 {
@@ -123,35 +121,6 @@ namespace eShop.DataBaseRepository
                                      UnitName = u.Name,
                                      ThumbnailPhoto = pp.ImagePath
                                  }).ToList();
-
-                    return query;
-                }
-            }
-            else if (productID == null && page != null)
-            {
-                using (eShopDBContext context = new eShopDBContext())
-                {
-                    var query = (from pc in context.ProductsInCategories
-                                 join p in context.Products on pc.ProductId equals p.Id
-                                 join c in context.Categories on pc.CategoryId equals c.Id
-                                 join u in context.Units on p.UnitId equals u.Id
-                                 join pp in context.ProductImages on p.Id equals pp.ProductId
-                                 where pp.IsThumbnail == true && p.DateDeleted == null
-
-                                 select new ProductDTO
-                                 {
-                                     UniqueID = pc.Id,
-                                     ProductId = p.Id,
-                                     Name = p.Name,
-                                     CategoryName = c.Name,
-                                     CreateDate = p.DateCreated,
-                                     Description = p.Description,
-                                     Price = p.Price,
-                                     Quantity = p.Quantity,
-                                     UnitName = u.Name,
-                                     ThumbnailPhoto = pp.ImagePath,
-                                     NumberOfPages = 10 /*(context.ProductsInCategories.Count()) / pageSize*/
-                                 }).Skip(page.Value * pageSize).Take(pageSize).ToList();
 
                     return query;
                 }
@@ -186,6 +155,21 @@ namespace eShop.DataBaseRepository
             }
         }
 
+        public List<UnitDTO> GetUnits()
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var query = (from u in context.Units
+                             select new UnitDTO
+                             {
+                                 UnitID = u.Id,
+                                 UnitName = u.Name
+                             }).ToList();
+
+                return query;
+            }
+        }
+
         public List<ProductDTO> RelatedproductsQuery(string categoryName)
         {
 
@@ -211,9 +195,40 @@ namespace eShop.DataBaseRepository
                                  UnitName = u.Name,
                                  ThumbnailPhoto = pp.ImagePath
                              })
-                             .OrderBy(x=>x.CreateDate)
+                             .OrderBy(x => x.CreateDate)
                              .Take(4)
                              .ToList();
+
+                return query;
+            }
+        }
+
+        public List<ProductDTO> GetProduct(int page = 1)
+        {
+            var pageSize = 8;
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var query = (from pc in context.ProductsInCategories
+                             join p in context.Products on pc.ProductId equals p.Id
+                             join c in context.Categories on pc.CategoryId equals c.Id
+                             join u in context.Units on p.UnitId equals u.Id
+                             join pp in context.ProductImages on p.Id equals pp.ProductId
+                             where pp.IsThumbnail == true && p.DateDeleted == null
+
+                             select new ProductDTO
+                             {
+                                 UniqueID = pc.Id,
+                                 ProductId = p.Id,
+                                 Name = p.Name,
+                                 CategoryName = c.Name,
+                                 CreateDate = p.DateCreated,
+                                 Description = p.Description,
+                                 Price = p.Price,
+                                 Quantity = p.Quantity,
+                                 UnitName = u.Name,
+                                 ThumbnailPhoto = pp.ImagePath,
+                                 NumberOfPages =  (context.ProductsInCategories.Count()) / pageSize
+                             }).Skip((page-1) * pageSize).Take(pageSize).ToList();
 
                 return query;
             }

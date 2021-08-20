@@ -11,11 +11,11 @@ namespace eShop.DomainService.RepositoriInterfaces
 {
     public interface IProductRepository
     {
-        List<ProductDTO> GetProduct(int? page, Guid? productID);
-
+        List<ProductDTO> AdminGetProduct(Guid? productID =null);
         void AddProduct(ProductEntity product, List<int> categories, List<string> Images);
         bool DeleteProduct(Guid productID);
         List<ProductDTO> RelatedproductsQuery(string categoryName);
-
+        List<UnitDTO> GetUnits();
+        List<ProductDTO> GetProduct(int page = 1);
     }
 }

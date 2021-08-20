@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace eShop.Admin.Controllers
@@ -18,12 +19,19 @@ namespace eShop.Admin.Controllers
             _CategoryApplicationService = CategoryApplicationService;
         }
 
-        public IActionResult GetCategories(int categoryID)
+        public IActionResult GetCategories(int? categoryID =null)
         {
             var query = _CategoryApplicationService.GetCategories(categoryID);
             return View(query);
         }
 
+
+        [HttpGet]
+        public string GetCategory(int id)
+        {
+            var query = _CategoryApplicationService.GetCategories(id).First();
+            return JsonSerializer.Serialize(query);
+        }
         public IActionResult AddCategory()
         {
 

@@ -18,7 +18,7 @@ namespace eShop.Web.Controllers
 
         public IActionResult ProductDetails(Guid ProductID,string CategoryName)
         {
-            var products = _ProductApplicationService.GetProduct(null,ProductID);
+            var products = _ProductApplicationService.AdminGetProduct(ProductID).First();
             var relatedProducts = _ProductApplicationService.RelatedProductsQuery(CategoryName);
             var result = new ProductDetailsModel
             {

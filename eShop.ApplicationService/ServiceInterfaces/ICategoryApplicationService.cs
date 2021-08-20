@@ -9,7 +9,7 @@ namespace eShop.ApplicationService.ServiceInterfaces
 {
     public interface ICategoryApplicationService
     {
-        List<CategoryDTO> GetCategories(int categoryID);
+        List<CategoryDTO> GetCategories(int? categoryID= null);
         ResultDTO AddCategory(CategoryDTO Category);
 
         bool DeleteCategory(int categoryID);

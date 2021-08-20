@@ -33,7 +33,7 @@ namespace eShop.ApplicationService.Services
             return _CategoryDomainService.DeleteCategory(categoryID);
         }
 
-        public List<CategoryDTO> GetCategories(int categoryID)
+        public List<CategoryDTO> GetCategories(int? categoryID = null)
         {
             return _CategoryRepository.GetCategories(categoryID);
         }

@@ -24,17 +24,28 @@
                         <input class="form-control" name="Description" id="Description" type="text" placeholder="აღწერა" />
                         <label for="inputPassword">აღწერა</label>
                     </div>
-                    <select class="form-select" aria-label="Default select example" name="UnitID">
-                        <option selected>UnitID</option>
-                        <option value="0">Kg</option>
-                        <option value="1">Lbs</option>
-                        <option value="2">Liter</option>
+                    <select class="form-floating mb-3 form-select" aria-label="Default select example"  name="UnitID">
+                        <option  selected>აირჩიეთ ერთეული</option>
+
+                        @{foreach (var item in ViewBag.Units)
+                            {
+                <option value="@item.UnitID">@item.UnitName</option>
+ } }
+
+                    </select>
+                    <select class="form-floating mb-3 form-select" aria-label="Default select example" name="CategoryID">
+                        <option selected>აირჩიეთ კატეგორია</option>
+
+                        @{foreach (var item in ViewBag.categories)
+                            {
+                <option value="@item.Id">@item.CategoryName</option>
+ } }
+
                     </select>
                     <input type="file" name="ImageFiles" multiple required />
-                    <div>
-                        <button type="submit" style="margin-top:15px" class="btn btn-primary" asp-controller="Product" asp-action="AddProduct">Upload File</button>
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <input type="submit" style="margin-top:15px" value="დამატება" class="btn btn-primary">
                     </div>
-                    
                 </form>
                 @*<div>
                                         @{ if (Model != null)

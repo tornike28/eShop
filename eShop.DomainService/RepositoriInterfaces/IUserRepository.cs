@@ -14,7 +14,7 @@ namespace eShop.DomainService.RepositoriInterfaces
         bool CheckSessionID(Guid SessionID);
         List<UserQueryDTO> GetUsersQuery();
         bool CheckUserExists(string email);
-        void AddNewUser(UserEntity user, int roleID);
+        void AddNewUser(UserEntity user);
         bool DeleteUser(Guid userId);
         bool DeleteSessionId(Guid sessionID);
         List<UserStatisticsDTO> GetUsersStatisticsQuery();

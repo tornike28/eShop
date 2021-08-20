@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace eShop.Admin.Controllers
@@ -16,60 +17,49 @@ namespace eShop.Admin.Controllers
     {
 
         IProductApplicationService _ProductApplicationService;
-        public ProductController(IProductApplicationService ProductApplicationService)
+        ICategoryApplicationService _CategoryApplicationService;
+        public ProductController(IProductApplicationService ProductApplicationService, ICategoryApplicationService CategoryApplicationService)
         {
             _ProductApplicationService = ProductApplicationService;
+            _CategoryApplicationService = CategoryApplicationService;
         }
 
         [Authorize]
         public IActionResult GetProduct()
         {
-            var query = _ProductApplicationService.GetProduct(null, null);
+            var query = _ProductApplicationService.AdminGetProduct();
 
 
             return View(query);
         }
-
+        public string GetProductInfo(string id)
+        {
+            Guid productId = Guid.Parse(id);
+            var product = _ProductApplicationService.AdminGetProduct(productId);
+            return JsonSerializer.Serialize(product);
+        }
         public IActionResult AddProduct()
         {
-
+            ViewBag.categories = _CategoryApplicationService.GetCategories().Where(x => x.Status == Status.Active).ToList();
+            ViewBag.Units = _ProductApplicationService.GetUnits().ToList();
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductModel productModel)
         {
-            List<string> fileNames = new List<string>();
-
-            foreach (var file in productModel.ImageFiles)
-            {
-                var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Upload\\");
-                bool basePathExists = Directory.Exists(basePath);
-                if (!basePathExists) Directory.CreateDirectory(basePath);
-                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                var extension = Path.GetExtension(file.FileName);
-                fileName = $"{ Guid.NewGuid()}{ extension}";
-                var filePath = Path.Combine(basePath, fileName);
-                if (!System.IO.File.Exists(filePath))
-                {
-                    using (var stream = new FileStream(filePath,FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                    fileNames.Add(filePath);
-                }
-            }
+           var filenames =  await _ProductApplicationService.UploadImages(productModel.ImageFiles);
 
             //Insert record
 
             var query = _ProductApplicationService.AddProduct(new ProductDTO()
-            {
-                CategoryId = productModel.CategoryID,
+            { 
+                CategoryIds = productModel.CategoryID,
                 Name = productModel.ProductName,
                 Description = productModel.Description,
                 Price = productModel.Price,
                 Quantity = productModel.Quantity,
                 UnitID = productModel.UnitID
-            }, fileNames);
+            }, filenames);
             if (query.IsError)
             {
                 return Content($"{query.ErrorMessages.First()}");
@@ -78,7 +68,7 @@ namespace eShop.Admin.Controllers
             {
                 return RedirectToAction(controllerName: "Product", actionName: "GetProduct");
             }
-           
+
         }
 
         [HttpPost]

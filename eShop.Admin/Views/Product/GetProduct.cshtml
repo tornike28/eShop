@@ -31,7 +31,7 @@
     <td>@item.Quantity</td>
     <td>@item.Description</td>
     <td>
-        <button class="btn btn-success btn-sm rounded-0 d-inline-block" type="submit" style="margin-right:5px;height:38px" ; data-placement="top" data-toggle="modal" onclick="getProduct(@item.ProductId)" data-target="#productModal" title="რედაქტირება"><i class="fa fa-edit"></i> რედაქტირება</button>
+        <button id="editBtn" style="margin-bottom:5px;height:38px" class="btn btn-success btn-sm rounded-0 d-inline-block" type="button" data-placement="top" data-toggle="modal" data-target="#productModal" title="რედაქტირება" data-id="@item.UniqueID" onclick="getproduct('@item.UniqueID')"><span class="iconify" data-icon="bi:pencil"></span>რედაქტირება</button>
         <form class="d-inline-block" asp-controller="Product" asp-action="DeleteProduct" method="post">
             <input type="hidden" value="@item.ProductId" name="ProductID" />
             <button type="submit" class="btn btn-danger">
@@ -42,42 +42,60 @@
 </tr>}
     </tbody>
 </table>
-<div class="modal fade" id="productModal">
-    <div class="modal-dialog">
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">პროდუქტი</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">პროდუქტის რედაქტირება</h5>
             </div>
             <div class="modal-body">
-                <div class="form-floating mb-3">
-                    <input class="form-control" name="ProductName" id="ProductName" type="text" placeholder="პროდუქტის დასახელება" />
-                    <label>პროდუქტის დასახელება</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" name="CategoryName" id="CategoryName" type="text" placeholder="კატეგორია" />
-                    <label>კატეგორია</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" name="Price" id="Price" type="number" placeholder="ფასი" />
-                    <label>ფასი</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" name="Quantity" id="Quantity" type="text" placeholder="რაოდენობა" />
-                    <label>რაოდენობა</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" name="UnitName" id="UnitName" type="text" placeholder="ერთეულის საზომი" />
-                    <label>ერთეულის საზომი</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" name="Description" id="Description" type="text" placeholder="აღწერა" />
-                    <label>აღწერა</label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="" class="btn btn-danger">გაუქმება</a>
-                <a href="" class="btn btn-success">დამახსოვრება</a>
+
+                <form enctype="multipart/form-data" asp-controller="Product" asp-action="SaveProduct" method="post">
+                    <div class="mb-3" hidden>
+                        <label for="ID" class="col-form-label">ID</label>
+                        <input type="text" class="form-control" id="ID" name="ID">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Name" class="col-form-label">სახელი</label>
+                        <input type="text" class="form-control" id="Name" name="Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Description" class="col-form-label">აღწერა</label>
+                        <textarea class="form-control" id="Description" name="Description"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Price" class="col-form-label">ფასი</label>
+                        <input type="text" class="form-control" id="Price" name="Price">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Unit" class="col-form-label">ერთეული</label>
+                        <input type="text" class="form-control" id="Unit" name="Unit">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Quantity" class="col-form-label">რაოდენობა</label>
+                        <input type="text" class="form-control" id="Quantity" name="Quantity">
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="col-md-10">
+                            <label id="productID"></label>
+                            <p>სურათის ატვირთვა/შეცვლა:</p>
+                            <input type="file" name="Image" />
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">გაუქმება</button>
+                        <input type="submit" class="btn btn-primary" value="შენახვა">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+<script src="/js/product.js"></script>

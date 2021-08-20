@@ -8,7 +8,7 @@ namespace eShop.Web.Models
 {
     public class ProductDetailsModel
     {
-        public List<ProductDTO> ProductDetailInfo { get;  set; }
         public List<ProductDTO> RelatedProductsInfo { get; set; }
+        public ProductDTO ProductDetailInfo { get;  set; }
     }
 }

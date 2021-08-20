@@ -31,7 +31,7 @@ namespace eShop.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserRegistration(NewUserModel newUserModel, RoleEnum role)
+        public IActionResult UserRegistration(NewUserModel newUserModel)
         {
             var query = _UserApplicationService.UserRegistraion(new UserDTO()
             {
@@ -40,8 +40,7 @@ namespace eShop.Admin.Controllers
                 LastName = newUserModel.LastName,
                 PasswordHash = newUserModel.PasswordHash,
                 PasswordHashRepeat = newUserModel.PasswordHashRepeat,
-            },
-             (int)role);
+            });
 
             return View(query);
         }

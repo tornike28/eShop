@@ -55,12 +55,12 @@ namespace eShop.ApplicationService.Services
             };
         }
 
-        public ResultDTO UserRegistraion(UserDTO User, int roleID)
+        public ResultDTO UserRegistraion(UserDTO User)
         {
             UserEntity UserModel = new UserEntity();
             UserModel.Set(AutoMapperExtensions.MapObject<UserDTO, UserEntity>(User));
 
-                return _UserDomainService.Registration(UserModel,roleID);
+                return _UserDomainService.Registration(UserModel);
         }
     }
 }
