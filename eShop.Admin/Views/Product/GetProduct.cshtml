@@ -23,7 +23,7 @@
         {
 <tr>
     <td> <img style="height:80px" src="@item.ThumbnailPhoto" alt="Image" /></td>
-    <td>@item.ProductId</td>
+    <td>@item.Id</td>
     <td>@item.Name</td>
     <td>@item.CategoryName</td>
     <td>@item.Price</td>
@@ -31,9 +31,9 @@
     <td>@item.Quantity</td>
     <td>@item.Description</td>
     <td>
-        <button id="editBtn" style="margin-bottom:5px;height:38px" class="btn btn-success btn-sm rounded-0 d-inline-block" type="button" data-placement="top" data-toggle="modal" data-target="#productModal" title="რედაქტირება" data-id="@item.UniqueID" onclick="getproduct('@item.UniqueID')"><span class="iconify" data-icon="bi:pencil"></span>რედაქტირება</button>
+        <button id="editBtn" style="margin-bottom:5px;height:38px" class="btn btn-success btn-sm rounded-0 d-inline-block" type="button" data-placement="top" data-toggle="modal" data-target="#productModal" title="რედაქტირება" data-id="@item.Id"><span class="iconify" data-icon="bi:pencil"></span>რედაქტირება</button>
         <form class="d-inline-block" asp-controller="Product" asp-action="DeleteProduct" method="post">
-            <input type="hidden" value="@item.ProductId" name="ProductID" />
+            <input type="hidden" value="@item.Id" name="ProductID" />
             <button type="submit" class="btn btn-danger">
                 <i class="fa fa-trash"></i> წაშლა
             </button>
@@ -52,13 +52,13 @@
 
                 <form enctype="multipart/form-data" asp-controller="Product" asp-action="SaveProduct" method="post">
                     <div class="mb-3" hidden>
-                        <label for="ID" class="col-form-label">ID</label>
-                        <input type="text" class="form-control" id="ID" name="ID">
+                        <label for="Id" class="col-form-label">Id</label>
+                        <input type="text" class="form-control" id="Id" name="Id">
                     </div>
 
                     <div class="mb-3">
-                        <label for="Name" class="col-form-label">სახელი</label>
-                        <input type="text" class="form-control" id="Name" name="Name">
+                        <label for="ProductName" class="col-form-label">სახელი</label>
+                        <input type="text" class="form-control" id="ProductName" name="ProductName">
                     </div>
 
                     <div class="form-group">
@@ -72,13 +72,18 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="Unit" class="col-form-label">ერთეული</label>
-                        <input type="text" class="form-control" id="Unit" name="Unit">
+                        <label for="UnitName" class="col-form-label">ერთეული</label>
+                        <input type="text" class="form-control" id="UnitName" name="UnitName">
                     </div>
 
                     <div class="mb-3">
                         <label for="Quantity" class="col-form-label">რაოდენობა</label>
                         <input type="text" class="form-control" id="Quantity" name="Quantity">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="CategoryName" class="col-form-label">კატეგორია</label>
+                        <input type="text" class="form-control" id="CategoryName" name="CategoryName">
                     </div>
 
                     <div class="mb-3">

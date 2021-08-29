@@ -13,6 +13,6 @@ namespace eShop.DomainService.ServiceInterfaces
     {
         ResultDTO AddProduct(ProductEntity productModel, List<int> categories, List<string> Images);
         bool DeleteProduct(Guid productID);
-
+        ResultDTO SaveProduct(ProductEntity productModel, List<int> categoryIds, List<string> fileNames);
     }
 }

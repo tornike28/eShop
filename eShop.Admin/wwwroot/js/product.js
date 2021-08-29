@@ -16,12 +16,13 @@ $('#productModal').on('show.bs.modal', function (event) {
             data: { id: id },
             dataType: "json",
             success: function (data) {
-                $('#ID').val(data.ID);
-                $('#Name').val(data.Name);
-                $('#Unit').val(data.Unit);
+                $('#Id').val(data.Id);
+                $('#ProductName').val(data.Name);
+                $('#UnitName').val(data.UnitName);
                 $('#Description').val(data.Description);
                 $('#Price').val(data.Price);
                 $('#Quantity').val(data.Quantity);
+                $('#CategoryName').val(data.CategoryName);
             },
             error: function (err) {
                 console.log('somthing went wrong:', err);

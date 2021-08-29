@@ -51,11 +51,12 @@
             </div>
             <div class="modal-body">
 
-                <form enctype="multipart/form-data" asp-controller="Category" asp-action="UpdateCategory" method="post">
+                <form enctype="multipart/form-data" asp-controller="Category" asp-action="SaveCategory" method="post">
                     <div class="mb-3">
-                        <label for="Name" class="col-form-label">სახელი</label>
-                        <input type="text" class="form-control" id="Name" name="Name">
+                        <label for="CategoryName" class="col-form-label">სახელი</label>
+                        <input type="text" class="form-control" id="CategoryName" name="CategoryName">
                     </div>
+                    <input type="hidden" class="form-control" id="CategoryID" name="CategoryID"/>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">გაუქმება</button>
                         <input type="submit" class="btn btn-primary" value="შენახვა">

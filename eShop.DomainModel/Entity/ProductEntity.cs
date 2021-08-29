@@ -20,7 +20,8 @@ namespace eShop.DomainModel.Entity
 
         public void Set(ProductEntity product)
         {
-            Id = Guid.NewGuid();
+
+            Id = product.Id != Guid.Empty ? product.Id : Guid.NewGuid();
             Name = product.Name;
             Description = product.Description;
             Price = product.Price;

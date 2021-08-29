@@ -103,5 +103,18 @@ namespace eShop.DataBaseRepository.Repositories
             }
            
         }
+
+        public void SaveCategory(CategoryDTO categoryDTO)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var category = (from c in context.Categories
+                             where c.DateDeleted == null && c.Id == categoryDTO.Id
+                             select c).FirstOrDefault();
+                category.Name = categoryDTO.CategoryName;
+                context.SaveChanges();
+            }
+              
+        }
     }
 }

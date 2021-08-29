@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace eShop.DataTransferObject
+namespace eShop.Web.Models
 {
-    public class AddOrderDTO
+    public class CartModel
     {
         public Guid ProductId { get; set; }
-        public Guid UserID { get; set; }
-        public decimal TotalPrice { get; set; }
+        public decimal ProductPrice { get; set; }
         public Guid? UserAddressID { get; set; }
         public int Quantity { get; set; }
     }

@@ -47,16 +47,16 @@ namespace eShop.DomainService.Services
                 return validationResponse;
             }
         }
-        public ResultDTO Registration(UserEntity user)
+        public ResultDTO AdminRegistration(UserEntity user)
         {
             var validationResponse = new List<string>();
             validationResponse = user.IsValid(UserValidationType.Registration);
-            
+
             if (!_UserRepository.CheckUserExists(user.Email))
             {
                 validationResponse.Add("User already exist");
             }
-           
+
             if (validationResponse.Count != 0)
             {
                 return new ResultDTO()
@@ -67,8 +67,35 @@ namespace eShop.DomainService.Services
             }
             else
             {
-                _UserRepository.AddNewUser(user);
+                _UserRepository.AdminRegistration(user);
                 return new ResultDTO() { IsError = false };
+            }
+        }
+
+        public ResultDTO UserRegistration(UserEntity userModel)
+        {
+
+            var validationResponse = new List<string>();
+            validationResponse = userModel.IsValid(UserValidationType.Registration);
+
+            if (!_UserRepository.CheckUserExists(userModel.Email))
+            {
+                validationResponse.Add("User already exist");
+            }
+
+            if (validationResponse.Count != 0)
+            {
+                return new ResultDTO()
+                {
+                    IsError = true,
+                    ErrorMessages = validationResponse,
+                   
+                };
+            }
+            else
+            {
+                _UserRepository.UserRegistration(userModel);
+                return new ResultDTO() { IsError = false, VerificationURL = Guid.NewGuid().ToString() };
             }
         }
     }

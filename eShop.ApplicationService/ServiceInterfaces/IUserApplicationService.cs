@@ -11,9 +11,11 @@ namespace eShop.ApplicationService.ServiceInterfaces
     {
         UserAuthResponseDTO Login(LoginDTO User);
         List<UserQueryDTO> GetUsersQuery();
-        ResultDTO UserRegistraion(UserDTO User);
+        ResultDTO AdminRegistration(UserDTO User);
         bool DeleteUser(Guid userId);
         bool DeleteSessionID(Guid sessionID);
         List<UserStatisticsDTO> GetUsersStatisticQuery();
+        ResultDTO UserRegistration(UserDTO loginModel);
+        void UserActivation(string userMail);
     }
 }

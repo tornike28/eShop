@@ -11,7 +11,7 @@ namespace eShop.DataBaseRepository.DB.Models
         public Guid Id { get; set; }
         public byte OrderStatusId { get; set; }
         public Guid? UserId { get; set; }
-        public Guid UserAddressId { get; set; }
+        public Guid? UserAddressId { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateChanged { get; set; }

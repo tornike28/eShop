@@ -87,9 +87,12 @@ namespace eShop.ApplicationService.Services
             return _ProductRepository.GetProduct(page);
         }
 
-        public bool AddToCart(Guid productId)
+        public ResultDTO SaveProduct(ProductDTO productDTO, List<string> fileNames)
         {
-            return _ProductRepository.AddToCart(productId);
+            ProductEntity ProductModel = new ProductEntity();
+            ProductModel.Set(AutoMapperExtensions.MapObject<ProductDTO, ProductEntity>(productDTO));
+
+            return _ProductDomainService.SaveProduct(ProductModel, productDTO.CategoryIds, fileNames);
         }
     }
 }

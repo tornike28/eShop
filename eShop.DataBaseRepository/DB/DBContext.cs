@@ -88,7 +88,6 @@ namespace eShop.DataBaseRepository.DB
                 entity.HasOne(d => d.UserAddress)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.UserAddressId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_UserAddress");
             });
 
@@ -107,6 +106,8 @@ namespace eShop.DataBaseRepository.DB
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DateDeleted).HasColumnType("datetime");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 

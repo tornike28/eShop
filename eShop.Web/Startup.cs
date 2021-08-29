@@ -1,6 +1,7 @@
 using eShop.ApplicationService.ServiceInterfaces;
 using eShop.ApplicationService.Services;
 using eShop.DataBaseRepository;
+using eShop.DataBaseRepository.Repositories;
 using eShop.DomainService.RepositoriInterfaces;
 using eShop.DomainService.ServiceInterfaces;
 using eShop.DomainService.Services;
@@ -33,6 +34,13 @@ namespace eShop.Web
             services.AddScoped<IProductApplicationService, ProductApplicationService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductDomainService, ProductDomainService>();
+
+            services.AddScoped<IOrderApplicationService, OrderApplicationService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
+            services.AddScoped<IUserApplicationService, UserApplicationService>();
+            services.AddScoped<IUserDomainService, UserDomainService>();
+            services.AddScoped<IUserRepository, UserRepostiory>();
 
 
             services.AddHttpContextAccessor();

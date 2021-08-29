@@ -14,7 +14,8 @@ namespace eShop.DomainService.ServiceInterfaces
 
         bool CheckSessionIsValid(Guid SessionID);
 
-        ResultDTO Registration(UserEntity user);
+        ResultDTO AdminRegistration(UserEntity user);
         bool DeleteUser(Guid userId);
+        ResultDTO UserRegistration(UserEntity userModel);
     }
 }

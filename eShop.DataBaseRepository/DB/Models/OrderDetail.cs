@@ -15,5 +15,6 @@ namespace eShop.DataBaseRepository.DB.Models
         public DateTime DateCreated { get; set; }
         public DateTime? DateChanged { get; set; }
         public DateTime? DateDeleted { get; set; }
+        public Guid? OrderId { get; set; }
     }
 }

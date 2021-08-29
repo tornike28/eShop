@@ -11,5 +11,8 @@ namespace eShop.DataTransferObject
         public bool IsError { get; set; }
 
         public List<string> ErrorMessages { get; set; }
+
+        public string VerificationURL { get; set; }
+        public string Email { get; set; }
     }
 }

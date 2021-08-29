@@ -5,37 +5,42 @@
     @{foreach (var item in Model)
         {
 <div class="col mb-5 product ">
-    <div class="card h-100">
-        <!-- Sale badge-->
-        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-        <!-- Product image-->
-        <form class="d-inline-block" asp-controller="Product" asp-action="ProductDetails" method="post">
-            <input type="hidden" name="CategoryName" value="@item.CategoryName" />
-            <input type="hidden" value="@item.UniqueID" name="ProductID" />
-            <button style="border:none"><img class="card-img-top" src="@item.ThumbnailPhoto" style="height:300px" alt="სურათი" /></button>
-        </form>
-        <!-- Product details-->
-        <div class="card-body p-4">
-            <div class="text-center">
-                <!-- Product name-->
-                <h5 class="fw-bolder">@item.Name</h5>
-                <!-- Product reviews-->
-                <div class="d-flex justify-content-center small text-warning mb-2">
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
+        <div class="card h-100">
+            <!-- Sale badge-->
+            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+            <!-- Product image-->
+            <form class="d-inline-block" asp-controller="Product" asp-action="ProductDetails" method="post">
+                <input type="hidden" name="CategoryName" value="@item.CategoryName" />
+                <input type="hidden" value="@item.UniqueID" name="ProductID" />
+                <button style="border:none"><img class="card-img-top" src="@item.ThumbnailPhoto" style="height:300px" alt="სურათი" /></button>
+            </form>
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <h5 class="fw-bolder">@item.Name</h5>
+                    <!-- Product reviews-->
+                    <div class="d-flex justify-content-center small text-warning mb-2">
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                    </div>
+                    <!-- Product price-->
+                    @item.Price
                 </div>
-                <!-- Product price-->
-                @item.Price
             </div>
+            <!-- Product actions-->
+
+            <form style="margin-left:40px" class="card-footer p-4 pt-0 border-top-0 bg-transparent" asp-controller="Order" asp-action="AddToCart" method="post">
+                <input type="hidden" name="ProductPrice" value="@item.Price" />
+                <input type="hidden" value="@item.Id" name="ProductId" />
+                <button class="text-center btn btn-outline-dark mt-auto" >კალათაში დამატება</button>
+            </form>
+
+
         </div>
-        <!-- Product actions-->
-        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">კალათაში დამატება</a></div>
-        </div>
-    </div>
 </div> } }
 
 

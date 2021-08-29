@@ -111,7 +111,7 @@ namespace eShop.DataBaseRepository
                                  select new ProductDTO
                                  {
                                      UniqueID = pc.Id,
-                                     ProductId = p.Id,
+                                     Id = p.Id,
                                      Name = p.Name,
                                      CategoryName = c.Name,
                                      CreateDate = p.DateCreated,
@@ -134,12 +134,12 @@ namespace eShop.DataBaseRepository
                                  join c in context.Categories on pc.CategoryId equals c.Id
                                  join u in context.Units on p.UnitId equals u.Id
                                  join pp in context.ProductImages on p.Id equals pp.ProductId
-                                 where pp.IsThumbnail == true && p.DateDeleted == null && pc.Id == productID
+                                 where pp.IsThumbnail == true && p.DateDeleted == null && p.Id == productID
 
                                  select new ProductDTO
                                  {
                                      UniqueID = pc.Id,
-                                     ProductId = p.Id,
+                                     Id = p.Id,
                                      Name = p.Name,
                                      CategoryName = c.Name,
                                      CreateDate = p.DateCreated,
@@ -185,7 +185,7 @@ namespace eShop.DataBaseRepository
                              select new ProductDTO
                              {
                                  UniqueID = pc.Id,
-                                 ProductId = p.Id,
+                                 Id = p.Id,
                                  Name = p.Name,
                                  CategoryName = c.Name,
                                  CreateDate = p.DateCreated,
@@ -218,7 +218,7 @@ namespace eShop.DataBaseRepository
                              select new ProductDTO
                              {
                                  UniqueID = pc.Id,
-                                 ProductId = p.Id,
+                                 Id = p.Id,
                                  Name = p.Name,
                                  CategoryName = c.Name,
                                  CreateDate = p.DateCreated,
@@ -234,39 +234,48 @@ namespace eShop.DataBaseRepository
             }
         }
 
-        public bool AddToCart(OrderEntity orderEntity)
+        public void SaveProduct(ProductEntity product, List<int> categoryIds, List<string> Images)
         {
+
+            List<ProductImage> ProductImages = new List<ProductImage>();
+
             using (var scope = new TransactionScope())
             {
                 using (eShopDBContext context = new eShopDBContext())
                 {
                     try
                     {
-                        Order newProduct = new Order()
+                        var Product = (from p in context.Products
+                                       where p.Id == product.Id
+                                       select p).FirstOrDefault();
+                        if (Product is not null)
                         {
-                            Id = orderEntity.Id,
-                            TotalPrice = +orderEntity.TotalPrice,
-                            UserId = orderEntity.UserID,
-                            UserAddressId = orderEntity.UserAddressID,
-                            OrderStatusId = ,
-                            DateCreated  = orderEntity.DateCreated
-                        };
+                            Product.Name = product.Name;
+                            Product.Quantity = product.Quantity;
+                            Product.Description = product.Description;
+                            Product.Price = product.Price;
+                            Product.DateCreated = DateTime.Now;
 
+                            if (Images is not null)
+                            {
+                                var Image = (from i in context.ProductImages
+                                             where i.ProductId == product.Id
+                                             select i).FirstOrDefault();
 
+                                Image.ImagePath = Images.First();
+                                context.SaveChanges();
+                            }
+                            context.SaveChanges();
+                        }
 
-                        //context.Products.Add(newProduct);
-                        context.SaveChanges();
-                        return true;
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         scope.Dispose();
-                        return false;
                     }
                     finally
                     {
                         scope.Complete();
-
                     }
                 }
             }

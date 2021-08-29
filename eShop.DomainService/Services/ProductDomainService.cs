@@ -39,10 +39,32 @@ namespace eShop.DomainService.Services
             }
         }
 
+
         public bool DeleteProduct(Guid productID)
         {
             return _ProductRepository.DeleteProduct(productID);
 
+        }
+
+        public ResultDTO SaveProduct(ProductEntity productModel, List<int> categoryIds, List<string> fileNames)
+        {
+            var validationResponse = new List<string>();
+            validationResponse = productModel.IsValid();
+
+
+            if (validationResponse.Count != 0)
+            {
+                return new ResultDTO()
+                {
+                    IsError = true,
+                    ErrorMessages = validationResponse
+                };
+            }
+            else
+            {
+                _ProductRepository.SaveProduct(productModel, categoryIds, fileNames);
+                return new ResultDTO() { IsError = false };
+            }
         }
     }
 }

@@ -14,8 +14,6 @@ namespace eShop.DomainService.RepositoriInterfaces
         void AddCategory(CategoryEntity category);
         bool CheckCategoryExists(string categoryName);
         bool DeleteCategory(int categoryID);
-
-        
-
+        void SaveCategory(CategoryDTO categoryDTO);
     }
 }

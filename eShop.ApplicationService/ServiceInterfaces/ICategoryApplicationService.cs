@@ -13,6 +13,6 @@ namespace eShop.ApplicationService.ServiceInterfaces
         ResultDTO AddCategory(CategoryDTO Category);
 
         bool DeleteCategory(int categoryID);
-
+        void SaveCategory(CategoryDTO categoryDTO);
     }
 }

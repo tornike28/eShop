@@ -17,6 +17,6 @@ namespace eShop.DomainService.RepositoriInterfaces
         List<ProductDTO> RelatedproductsQuery(string categoryName);
         List<UnitDTO> GetUnits();
         List<ProductDTO> GetProduct(int page = 1);
-        bool AddToCart(Guid productId);
+        void SaveProduct(ProductEntity productModel, List<int> categoryIds, List<string> fileNames);
     }
 }

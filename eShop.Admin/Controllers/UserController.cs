@@ -33,7 +33,7 @@ namespace eShop.Admin.Controllers
         [HttpPost]
         public IActionResult UserRegistration(NewUserModel newUserModel)
         {
-            var query = _UserApplicationService.UserRegistraion(new UserDTO()
+            var query = _UserApplicationService.AdminRegistration(new UserDTO()
             {
                 Email = newUserModel.Email,
                 FirstName = newUserModel.FirstName,

@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\eShop.ApplicationService\eShop.ApplicationService.csproj" />
     <ProjectReference Include="..\eShop.DataBaseRepository\eShop.DataBaseRepository.csproj" />
+    <ProjectReference Include="..\eShop.DataTransferObject\eShop.DataTransferObject.csproj" />
   </ItemGroup>
 
 </Project>

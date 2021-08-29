@@ -38,6 +38,9 @@ namespace eShop.ApplicationService.Services
             return _CategoryRepository.GetCategories(categoryID);
         }
 
-      
+        public void SaveCategory(CategoryDTO categoryDTO)
+        {
+             _CategoryRepository.SaveCategory(categoryDTO);
+        }
     }
 }

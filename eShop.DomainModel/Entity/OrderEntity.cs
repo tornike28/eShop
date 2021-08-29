@@ -22,7 +22,7 @@ namespace eShop.DomainModel.Entity
             Id = Guid.NewGuid();
             UserAddressID = order.UserAddressID;
             UserID = order.UserID;
-            TotalPrice = order.ProductPrice;
+            TotalPrice = order.TotalPrice;
             DateCreated = DateTime.Now;
         }
     }

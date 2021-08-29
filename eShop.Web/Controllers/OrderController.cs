@@ -1,4 +1,6 @@
 ﻿using eShop.ApplicationService.ServiceInterfaces;
+using eShop.DataTransferObject;
+using eShop.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,26 +11,33 @@ namespace eShop.Web.Controllers
 {
     public class OrderController : Controller
     {
-        IProductApplicationService _ProductApplicationService;
+        IOrderApplicationService _OrderApplicationService;
 
-        public OrderController(IProductApplicationService ProductApplicationService)
+        public OrderController(IOrderApplicationService OrderApplicationService)
         {
-            _ProductApplicationService = ProductApplicationService;
+            _OrderApplicationService = OrderApplicationService;
         }
 
-        public IActionResult Index()
+        public IActionResult AddToCart(CartModel cartModel)
         {
-            return View();
-        }
-
-        public IActionResult AddToCart(Guid ProductId)
-        {
-            _ProductApplicationService.AddToCart(ProductId);
+           
+            Guid UserId = Guid.NewGuid();
+          
+            _OrderApplicationService.AddToCart(new AddOrderDTO() 
+            {
+                ProductId = cartModel.ProductId,
+                TotalPrice = cartModel.ProductPrice,
+                UserAddressID =cartModel.UserAddressID,
+                UserID = UserId,
+                Quantity = cartModel.Quantity
+            });
             return RedirectToAction(controllerName:"Home",actionName:"Index");
         }
         public IActionResult InsideCart()
         {
-            //var viewModel = _ProductApplicationService.GetCartInfo();
+            //სესიიდან წამოვიღებ
+            Guid UserId = Guid.NewGuid();
+            var viewModel = _OrderApplicationService.GetCartInfo(UserId);
 
 
             return View(/*viewModel*/);

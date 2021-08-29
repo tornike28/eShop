@@ -12,7 +12,8 @@
         data: { id: id },
         dataType: "json",
         success: function (data) {
-            $('#Name').val(data.Name);
+            $('#CategoryName').val(data.CategoryName);
+            $('#CategoryID').val(data.Id);
         },
         error: function (err) {
             console.log('somthing went wrong:', err);

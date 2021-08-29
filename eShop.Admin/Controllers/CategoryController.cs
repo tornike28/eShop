@@ -1,5 +1,7 @@
 ﻿using eShop.Admin.Attributes;
+using eShop.Admin.Models;
 using eShop.ApplicationService.ServiceInterfaces;
+using eShop.DataTransferObject;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -39,15 +41,22 @@ namespace eShop.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCategory(string CategoryName)
+        public IActionResult AddCategory(CategoryModel Category)
         {
-            var query = _CategoryApplicationService.AddCategory(new DataTransferObject.CategoryDTO() { CategoryName = CategoryName });
+            var query = _CategoryApplicationService.AddCategory(new DataTransferObject.CategoryDTO() { CategoryName = Category.CategoryName });
             return View(query);
         }
         [HttpPost]
-        public IActionResult DeleteCategory(int CategoryID)
+        public IActionResult DeleteCategory(CategoryModel Category)
         {
-            _CategoryApplicationService.DeleteCategory(CategoryID);
+            _CategoryApplicationService.DeleteCategory(Category.CategoryID);
+            return RedirectToAction(controllerName: "Category", actionName: "GetCategories");
+        }
+
+        public IActionResult SaveCategory(CategoryModel categoryModel)
+        {
+            _CategoryApplicationService.SaveCategory(new CategoryDTO() { CategoryName = categoryModel.CategoryName,Id = categoryModel.CategoryID });
+
             return RedirectToAction(controllerName: "Category", actionName: "GetCategories");
         }
 

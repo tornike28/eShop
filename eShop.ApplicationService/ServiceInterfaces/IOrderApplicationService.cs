@@ -10,6 +10,8 @@ namespace eShop.ApplicationService.ServiceInterfaces
     public interface IOrderApplicationService
     {
         public List<OrderQueryDTO> GetOrders();
+        bool AddToCart(AddOrderDTO addOrderDTO);
+        List<InsideCartDTO> GetCartInfo(Guid userID);
 
     }
 }

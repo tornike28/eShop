@@ -9,7 +9,7 @@ namespace eShop.DataTransferObject
 {
     public class ProductDTO
     {
-        public Guid ProductId { get; set; }
+        public Guid Id { get; set; }
 
         public List<int> CategoryIds { get; set; }
 

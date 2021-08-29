@@ -14,7 +14,7 @@ namespace eShop.DataBaseRepository
 {
     public class UserRepostiory : IUserRepository
     {
-        public void AddNewUser(UserEntity user)
+        public void AdminRegistration(UserEntity user)
         {
             using (var scope = new TransactionScope())
             {
@@ -34,7 +34,7 @@ namespace eShop.DataBaseRepository
                         };
                         UsersInRole usersInRole = new UsersInRole()
                         {
-                            RoleId = 0,
+                            RoleId = 2,
                             UserId = user.Id
                         };
 
@@ -50,7 +50,6 @@ namespace eShop.DataBaseRepository
                     }
                 }
             }
-
         }
         public bool CheckSessionID(Guid SessionID)
         {
@@ -182,5 +181,54 @@ namespace eShop.DataBaseRepository
             }
         }
 
+        public void UserActivation(string userMail)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var user = (from c in context.Users
+                            where c.Email == userMail
+                            select c).FirstOrDefault();
+
+                user.IsActive = true;
+                context.SaveChanges();
+            }
+        }
+
+        public void UserRegistration(UserEntity user)
+        {
+            using (var scope = new TransactionScope())
+            {
+                using (eShopDBContext context = new eShopDBContext())
+                {
+                    try
+                    {
+                        User newUser = new User()
+                        {
+                            Id = user.Id,
+                            Email = user.Email,
+                            FirstName = user.FirstName,
+                            PasswordHash = user.PasswordHash,
+                            IsActive = false,
+                            LastName = user.LastName,
+                        };
+                        UsersInRole usersInRole = new UsersInRole()
+                        {
+                            RoleId = 0,
+                            UserId = user.Id
+                        };
+
+                        context.UsersInRoles.Add(usersInRole);
+                        context.Users.Add(newUser);
+
+                        context.SaveChanges();
+                        scope.Complete();
+                    }
+                    catch (Exception)
+                    {
+                        scope.Dispose();
+                    }
+                }
+            }
+        }
     }
 }
