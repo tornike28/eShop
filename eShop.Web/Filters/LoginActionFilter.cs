@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace eShop.Admin.Filters
 {
-    public class AutorizeActionFilter : IAuthorizationFilter
+    public class LoginActionFilter : IAuthorizationFilter
     {
         IUserDomainService _auth;
         Guid _sessionID;
-        public AutorizeActionFilter(IUserDomainService auth)
+        public LoginActionFilter(IUserDomainService auth)
         {
             _auth = auth;
         }
@@ -25,13 +25,13 @@ namespace eShop.Admin.Filters
                 bool isAuthorized = _auth.CheckSessionIsValid(_sessionID);
                 if (!isAuthorized)
                 {
-                    context.Result = new RedirectResult("~/auth/login/");
+                    context.Result = new RedirectResult("~/Auth/Register/");
                 }
 
             }
             catch (Exception ex)
             {
-                context.Result = new RedirectResult("~/auth/login/");
+                context.Result = new RedirectResult("~/auth/Register/");
             }
         }
     }

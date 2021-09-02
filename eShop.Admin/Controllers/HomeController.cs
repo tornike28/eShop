@@ -34,7 +34,8 @@ namespace eShop.Admin.Controllers
                 var dataPoint = new DataPoint(item.Month, item.NumberOfUsers);
                 DataPoints.Add(dataPoint);
             }
-       
+
+            ViewBag.DataPointss = JsonConvert.SerializeObject(3);
 
             ViewBag.DataPoints = JsonConvert.SerializeObject(DataPoints);
             return View(DataPoints);

@@ -13,5 +13,8 @@ namespace eShop.Web.Models
 
         [Required]
         public string FullAddress { get; set; }
+        [Required]
+        public bool IsPrimary { get; set; }
+
     }
 }

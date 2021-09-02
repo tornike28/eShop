@@ -32,5 +32,16 @@ namespace eShop.ApplicationService.Services
 
             return _OrderRepository.AddToCart(OrderModel, addOrderDTO.ProductId, addOrderDTO.Quantity);
         }
+
+        public void DeleteProductFromCart(string userMail, Guid productId)
+        {
+             _OrderRepository.DeleteProductFromCart(userMail, productId);
+
+        }
+
+        public void Payment(string userMail, Guid addressId)
+        {
+            _OrderRepository.Payment(userMail, addressId);
+        }
     }
 }

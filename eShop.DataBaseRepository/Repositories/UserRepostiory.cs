@@ -130,6 +130,7 @@ namespace eShop.DataBaseRepository
                 var query = (from u in context.UserAddresses
                              select new UserAddressDTO
                              {
+                                 Id = u.Id,
                                  City = u.City,
                                  FullAddress = u.FullAddress
                              }).ToList();
@@ -235,7 +236,7 @@ namespace eShop.DataBaseRepository
                         UserId = User,
                         City = userAddressDTO.City,
                         FullAddress = userAddressDTO.FullAddress,
-                        IsPrimary = false,
+                        IsPrimary = userAddressDTO.IsPrimary,
                         DateCreated = DateTime.Now
                     };
                     context.UserAddresses.Add(userAddress);

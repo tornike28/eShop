@@ -119,7 +119,7 @@
             <div class="modal-body">
 
                 <form enctype="multipart/form-data" asp-controller="User" asp-action="SaveUserAddress" method="post">
-                    <div class="mb-3" >
+                    <div class="mb-3">
                         <label for="City" class="col-form-label">ქალაქი</label>
                         <input type="text" class="form-control" id="City" name="City">
                     </div>
@@ -127,7 +127,13 @@
                         <label for="FullAddress" class="col-form-label">ზუსტი მისამართი</label>
                         <input type="text" class="form-control" id="FullAddress" name="FullAddress">
                     </div>
-                   
+                    <div class="mb-3">
+                        <label for="FullAddress" class="col-form-label">მთავარი მისამართი</label>
+                        <input id="IsPrimary" type="checkbox" value="true" name="IsPrimary" />
+                        <input type="hidden" value="false" name="IsPrimary" />
+                    </div>
+                  
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">გაუქმება</button>
                         <input type="submit" class="btn btn-primary" value="დამატება">

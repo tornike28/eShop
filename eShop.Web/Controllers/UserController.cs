@@ -55,7 +55,9 @@ namespace eShop.Web.Controllers
             {
                 City = userAddressModel.City,
                 FullAddress = userAddressModel.FullAddress,
-                Email = UserMail
+                Email = UserMail,
+                IsPrimary = userAddressModel.IsPrimary
+
             });
 
             return RedirectToAction(controllerName: "User", actionName: "GetUser");

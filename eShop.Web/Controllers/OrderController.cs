@@ -21,7 +21,7 @@ namespace eShop.Web.Controllers
             _OrderApplicationService = OrderApplicationService;
             _UserApplicationService = UserApplicationService;
         }
-        [Authorize]
+        [Login]
         public IActionResult AddToCart(CartModel cartModel)
         {
             if (cartModel.Quantity == 0)
@@ -41,7 +41,7 @@ namespace eShop.Web.Controllers
             return RedirectToAction(controllerName: "Home", actionName: "Index");
         }
 
-        [Authorize]
+        [Login]
         public IActionResult InsideCart()
         {
             var UserMail = HttpContext.Session.GetString("UserName");
@@ -49,15 +49,42 @@ namespace eShop.Web.Controllers
             var cartInfo = _OrderApplicationService.GetCartInfo(UserMail);
             ViewBag.TotalPrice = cartInfo.Select(x => x.TotalPrice).FirstOrDefault();
 
-            var userAddress = _UserApplicationService.GetUserAddresses(UserMail);
 
             var viewModel = new InsideCartModel()
             {
-                address = userAddress,
                 CartInfo = cartInfo
             };
 
             return View(viewModel);
+        }
+
+        public IActionResult DeleteProductFromCart(Guid Id)
+        {
+            var UserMail = HttpContext.Session.GetString("UserName");
+
+             _OrderApplicationService.DeleteProductFromCart(UserMail, Id);
+
+            return RedirectToAction(controllerName: "Order", actionName: "InsideCart");
+        }
+
+
+        [HttpGet]
+        public IActionResult Payment()
+        {
+            var UserMail = HttpContext.Session.GetString("UserName");
+            var userAddress = _UserApplicationService.GetUserAddresses(UserMail);
+
+            return View(userAddress);
+        }
+
+        [HttpPost]
+        public IActionResult Payment(PaymnetModel paymnetModel)
+        {
+            var UserMail = HttpContext.Session.GetString("UserName");
+
+            _OrderApplicationService.Payment(UserMail, paymnetModel.AddressId);
+
+            return RedirectToAction(controllerName: "Home", actionName: "Index");
         }
     }
 }

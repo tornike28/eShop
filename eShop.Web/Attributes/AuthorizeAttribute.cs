@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace eShop.Admin.Attributes
 {
-    public class AuthorizeAttribute :TypeFilterAttribute
+    public class LoginAttribute :TypeFilterAttribute
     {
-        public AuthorizeAttribute() :base(typeof(AutorizeActionFilter))
+        public LoginAttribute() :base(typeof(LoginActionFilter))
         {
             Arguments = new object[] { };
         }

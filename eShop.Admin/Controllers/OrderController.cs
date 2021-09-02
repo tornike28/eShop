@@ -16,8 +16,8 @@ namespace eShop.Admin.Controllers
         }
         public IActionResult Index()
         {
-            _OrderApplicationService.GetOrders();
-            return View();
+          var viewModel =  _OrderApplicationService.GetOrders();
+            return View(viewModel);
         }
     }
 }

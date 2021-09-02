@@ -70,12 +70,16 @@
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex">
-                <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
-                <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                    <i class="bi-cart-fill me-1"></i>
-                    კალათაში დამატება
-                </button>
+            <div class="d-flex d-inline-block">
+                <form asp-action="AddToCart" asp-controller="Order" method="post">
+                    <input type="hidden" name="ProductId" value="@Model.ProductDetailInfo.Id" />
+                    <input type="hidden" name="ProductPrice" value="@Model.ProductDetailInfo.Price" />
+                    <input class="form-control text-center me-3 d-inline-block" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        კალათაში დამატება
+                    </button>
+                </form>
             </div>
         </div>
     </div>

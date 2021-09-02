@@ -13,5 +13,7 @@ namespace eShop.DomainService.RepositoriInterfaces
         List<OrderQueryDTO> GetOrders();
         bool AddToCart(OrderEntity orderEntity, Guid productID, int quantity);
         List<InsideCartDTO> GetCartInfo(string userMail);
+        void DeleteProductFromCart(string userMail, Guid productId);
+        void Payment(string userMail, Guid addressId);
     }
 }

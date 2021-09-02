@@ -22,11 +22,17 @@ namespace eShop.DataBaseRepository.Repositories
                 {
                     try
                     {
-                        var UserId = (from u in context.Users
+                        var userId = (from u in context.Users
                                       where u.Email == orderEntity.UserMail
                                       select u.Id).FirstOrDefault();
 
-                        var order = context.Orders.Where(x => x.UserId == UserId && x.OrderStatusId == 0).FirstOrDefault();
+                        var userAddressID = (from ua in context.UserAddresses
+                                             where ua.UserId == userId && ua.IsPrimary == true
+                                             select ua.Id).FirstOrDefault();
+
+
+
+                        var order = context.Orders.Where(x => x.UserId == userId && x.OrderStatusId == 0).FirstOrDefault();
 
                         if (order is null)
                         {
@@ -34,8 +40,8 @@ namespace eShop.DataBaseRepository.Repositories
                             {
                                 Id = orderEntity.Id,
                                 TotalPrice = orderEntity.TotalPrice,
-                                UserId = UserId,
-                                UserAddressId = orderEntity.UserAddressID,
+                                UserId = userId,
+                                UserAddressId = userAddressID,
                                 OrderStatusId = 0,
                                 DateCreated = orderEntity.DateCreated
                             };
@@ -86,6 +92,32 @@ namespace eShop.DataBaseRepository.Repositories
             }
         }
 
+        public void DeleteProductFromCart(string userMail, Guid productId)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var userID = (from u in context.Users
+                              where u.DateDeleted == null && u.Email == userMail
+                              select u.Id).FirstOrDefault();
+
+                var order = (from o in context.Orders
+                             where o.OrderStatusId == 0 && o.UserId == userID
+                             select o).FirstOrDefault();
+
+                var product = (from p in context.Products
+                               where p.Id == productId
+                               select p).FirstOrDefault();
+
+                var orderdetail = (from o in context.OrderDetails
+                                   where o.ProductId == productId && o.OrderId == order.Id
+                                   select o).FirstOrDefault();
+
+                order.TotalPrice = order.TotalPrice - product.Price;
+                context.OrderDetails.Remove(orderdetail);
+                context.SaveChanges();
+            }
+        }
+
         public List<InsideCartDTO> GetCartInfo(string userMail)
         {
             using (eShopDBContext context = new eShopDBContext())
@@ -131,6 +163,27 @@ namespace eShop.DataBaseRepository.Repositories
                              }).ToList();
 
                 return query;
+            }
+        }
+
+        public void Payment(string userMail, Guid addressId)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var user = (from u in context.Users
+                             where u.Email == userMail
+                             select u.Id).FirstOrDefault();
+
+                var order = (from o in context.Orders
+                             where o.UserId == user
+                             select o)
+                             .FirstOrDefault();
+
+                order.OrderStatusId = 2;
+                order.UserAddressId = addressId;
+
+                context.SaveChanges();
+
             }
         }
     }

@@ -1,0 +1,38 @@
+﻿@model List<eShop.DataTransferObject.UserAddressDTO>
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">პროდუქტის დამატება</h3></div>
+                <div class="card-body">
+                    <form asp-controller="Order" asp-action="Payment" method="post">
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="Description" id="Description" type="text" placeholder="აღწერა" />
+                            <label for="inputPassword">გადახდის მეთოდი </label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="Description" id="Description" type="text" placeholder="აღწერა" />
+                            <label for="BankAccount">ბანკის ანგარიში</label>
+                        </div>
+
+                        <select class="form-floating mb-3 form-select" aria-label="Default select example" name="AddressId">
+                            <option selected>აირჩიეთ მისამართი</option>
+
+                            @{foreach (var item in Model)
+                                {
+                                    <option value="@item.Id">@item.City+","+@item.FullAddress</option>
+                                } }
+
+                        </select>
+                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <input type="submit" style="margin-top:15px" value="დამატება" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
