@@ -75,6 +75,16 @@ namespace eShop.ApplicationService.Services
         {
              _UserRepository.UserActivation(userMail);
         }
+
+        public UserQueryDTO GetUserQuery(string mail)
+        {
+           return _UserRepository.GetUserQuery(mail);
+        }
+
+        public void UpdateUserInformation(UserDTO userDTO)
+        {
+             _UserRepository.UpdateUserInformation(userDTO);
+        }
     }
 }
 

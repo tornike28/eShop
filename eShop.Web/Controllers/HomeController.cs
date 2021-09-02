@@ -25,7 +25,7 @@ namespace eShop.Web.Controllers
             ViewBag.NextPage = page + 1;
 
             return View(products);
-        }
+       }
 
         public IActionResult About()
         {

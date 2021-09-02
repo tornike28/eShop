@@ -1,6 +1,8 @@
-﻿using eShop.ApplicationService.ServiceInterfaces;
+﻿using eShop.Admin.Attributes;
+using eShop.ApplicationService.ServiceInterfaces;
 using eShop.DataTransferObject;
 using eShop.Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,30 +19,35 @@ namespace eShop.Web.Controllers
         {
             _OrderApplicationService = OrderApplicationService;
         }
-
+        [Authorize]
         public IActionResult AddToCart(CartModel cartModel)
         {
-           
-            Guid UserId = Guid.NewGuid();
-          
-            _OrderApplicationService.AddToCart(new AddOrderDTO() 
+            if (cartModel.Quantity == 0)
+            {
+                cartModel.Quantity = 1;
+            }
+            var UserMail = HttpContext.Session.GetString("UserName");
+
+            _OrderApplicationService.AddToCart(new AddOrderDTO()
             {
                 ProductId = cartModel.ProductId,
                 TotalPrice = cartModel.ProductPrice,
-                UserAddressID =cartModel.UserAddressID,
-                UserID = UserId,
+                UserAddressID = cartModel.UserAddressID,
+                UserMail = UserMail,
                 Quantity = cartModel.Quantity
             });
-            return RedirectToAction(controllerName:"Home",actionName:"Index");
+            return RedirectToAction(controllerName: "Home", actionName: "Index");
         }
+
+        [Authorize]
         public IActionResult InsideCart()
         {
-            //სესიიდან წამოვიღებ
-            Guid UserId = Guid.NewGuid();
-            var viewModel = _OrderApplicationService.GetCartInfo(UserId);
+            var UserMail = HttpContext.Session.GetString("UserName");
 
+            var viewModel = _OrderApplicationService.GetCartInfo(UserMail);
+            ViewBag.TotalPrice = viewModel.Select(x => x.TotalPrice).FirstOrDefault(); 
 
-            return View(/*viewModel*/);
+            return View(viewModel);
         }
     }
 }

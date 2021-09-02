@@ -11,7 +11,7 @@
             <!-- Product image-->
             <form class="d-inline-block" asp-controller="Product" asp-action="ProductDetails" method="post">
                 <input type="hidden" name="CategoryName" value="@item.CategoryName" />
-                <input type="hidden" value="@item.UniqueID" name="ProductID" />
+                <input type="hidden" value="@item.Id" name="ProductID" />
                 <button style="border:none"><img class="card-img-top" src="@item.ThumbnailPhoto" style="height:300px" alt="სურათი" /></button>
             </form>
             <!-- Product details-->

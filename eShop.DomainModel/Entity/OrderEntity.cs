@@ -12,6 +12,7 @@ namespace eShop.DomainModel.Entity
         public Guid Id { get; set; }
         public Guid? UserAddressID { get; set; }
         public Guid UserID { get; set; }
+        public string UserMail { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateChanged { get; set; }
@@ -21,7 +22,7 @@ namespace eShop.DomainModel.Entity
         {
             Id = Guid.NewGuid();
             UserAddressID = order.UserAddressID;
-            UserID = order.UserID;
+            UserMail = order.UserMail;
             TotalPrice = order.TotalPrice;
             DateCreated = DateTime.Now;
         }

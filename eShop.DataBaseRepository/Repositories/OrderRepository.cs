@@ -22,7 +22,11 @@ namespace eShop.DataBaseRepository.Repositories
                 {
                     try
                     {
-                        var order = context.Orders.Where(x => x.UserId == orderEntity.UserID && x.OrderStatusId == 0).FirstOrDefault();
+                        var UserId = (from u in context.Users
+                                      where u.Email == orderEntity.UserMail
+                                      select u.Id).FirstOrDefault();
+
+                        var order = context.Orders.Where(x => x.UserId == UserId && x.OrderStatusId == 0).FirstOrDefault();
 
                         if (order is null)
                         {
@@ -30,7 +34,7 @@ namespace eShop.DataBaseRepository.Repositories
                             {
                                 Id = orderEntity.Id,
                                 TotalPrice = orderEntity.TotalPrice,
-                                UserId = orderEntity.UserID,
+                                UserId = UserId,
                                 UserAddressId = orderEntity.UserAddressID,
                                 OrderStatusId = 0,
                                 DateCreated = orderEntity.DateCreated
@@ -47,12 +51,12 @@ namespace eShop.DataBaseRepository.Repositories
                             };
                             context.Orders.Add(newOrder);
                             context.OrderDetails.Add(orderDetail);
-
+                            context.SaveChanges();
                         }
                         else
                         {
                             order.TotalPrice += orderEntity.TotalPrice;
-                           
+
                             OrderDetail orderDetail = new OrderDetail()
                             {
                                 Id = Guid.NewGuid(),
@@ -82,7 +86,7 @@ namespace eShop.DataBaseRepository.Repositories
             }
         }
 
-        public List<InsideCartDTO> GetCartInfo(Guid UserId)
+        public List<InsideCartDTO> GetCartInfo(string userMail)
         {
             using (eShopDBContext context = new eShopDBContext())
             {
@@ -90,7 +94,8 @@ namespace eShop.DataBaseRepository.Repositories
                              join o in context.Orders on od.OrderId equals o.Id
                              join os in context.OrderStatuses on o.OrderStatusId equals os.Id
                              join p in context.Products on od.ProductId equals p.Id
-                             where o.UserId == UserId && o.OrderStatusId == 0
+                             join u in context.Users on o.UserId equals u.Id
+                             where u.Email == userMail && o.OrderStatusId == 0
 
                              select new InsideCartDTO
                              {

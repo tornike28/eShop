@@ -119,6 +119,26 @@ namespace eShop.DataBaseRepository
             }
         }
 
+        public UserQueryDTO GetUserQuery(string mail)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var query = (from user in context.Users
+                             join ur in context.UsersInRoles on user.Id equals ur.UserId
+                             where user.DateDeleted == null && user.Email == mail
+                             select new UserQueryDTO
+                             {
+                                 ID = user.Id,
+                                 FirstName = user.FirstName,
+                                 LastName = user.LastName,
+                                 Email = user.Email,
+                                 IsActive = user.IsActive,
+                                 DateCreated = user.DateCreated
+                             }).FirstOrDefault();
+
+                return query;
+            }
+        }
         public List<UserQueryDTO> GetUsersQuery()
         {
             using (eShopDBContext context = new eShopDBContext())
@@ -177,6 +197,25 @@ namespace eShop.DataBaseRepository
                 else
                 {
                     return false;
+                }
+            }
+        }
+
+        public void UpdateUserInformation(UserDTO userDTO)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var query = (from user in context.Users
+                             select user).FirstOrDefault();
+
+                if (query != null)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(userDTO.FirstName)) query.FirstName = userDTO.FirstName;
+                    if (!string.IsNullOrWhiteSpace(userDTO.LastName)) query.LastName = userDTO.LastName;
+                    if (!string.IsNullOrWhiteSpace(userDTO.Email)) query.Email = userDTO.Email;
+
+                    context.SaveChanges();
                 }
             }
         }

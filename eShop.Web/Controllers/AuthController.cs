@@ -36,6 +36,7 @@ namespace eShop.Web.Controllers
             }
         }
 
+
         public IActionResult LogOut()
         {
             var sessionId = Guid.Parse(HttpContext.Session.GetString("SessionID"));
@@ -69,6 +70,8 @@ namespace eShop.Web.Controllers
         {
             return View();
         }
+
+
 
         [HttpPost]
         public IActionResult Register(NewUserModel UserModel)

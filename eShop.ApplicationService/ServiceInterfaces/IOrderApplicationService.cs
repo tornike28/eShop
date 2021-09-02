@@ -11,7 +11,7 @@ namespace eShop.ApplicationService.ServiceInterfaces
     {
         public List<OrderQueryDTO> GetOrders();
         bool AddToCart(AddOrderDTO addOrderDTO);
-        List<InsideCartDTO> GetCartInfo(Guid userID);
+        List<InsideCartDTO> GetCartInfo(string userMail);
 
     }
 }

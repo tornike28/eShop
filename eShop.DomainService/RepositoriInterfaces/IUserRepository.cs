@@ -20,5 +20,7 @@ namespace eShop.DomainService.RepositoriInterfaces
         List<UserStatisticsDTO> GetUsersStatisticsQuery();
         void UserRegistration(UserEntity userModel);
         void UserActivation(string userMail);
+        UserQueryDTO GetUserQuery(string mail);
+        void UpdateUserInformation(UserDTO userDTO);
     }
 }

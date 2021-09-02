@@ -14,60 +14,35 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>
-                    <div class="input-group mb-3">
-                        <input type="number" class="form-control" placeholder="რაოდენობა" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">ცალი</span>
-                        </div>
-                    </div>
+            @{foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>@item.ProductName</td>
+                        <td>
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control" placeholder="რაოდენობა" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">ცალი</span>
+                                </div>
+                            </div>
 
 
-                </td>
-                <td>12 ლ</td>
-                <td>
-                    <button class="btn btn-primary">განახლება</button>
-                    <button class="btn btn-danger">წაშლა</button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>
-                    <div class="input-group mb-3">
-                        <input type="number" class="form-control" placeholder="რაოდენობა" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">ცალი</span>
-                        </div>
-                    </div>
-                </td>
-                <td>10 ლ</td>
-                <td><button class="btn btn-danger">წაშლა</button></td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>
-                    <div class="input-group mb-3">
-                        <input type="number" class="form-control" placeholder="რაოდენობა" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">ცალი</span>
-                        </div>
-                    </div>
-                </td>
-                <td>45 ლ</td>
-                <td><button class="btn btn-danger">წაშლა</button></td>
-            </tr>
+                        </td>
+                        <td>@item.price</td>
+                        <td>
+                            <button class="btn btn-primary">განახლება</button>
+                            <button class="btn btn-danger">წაშლა</button>
+                        </td>
+                    </tr>
+                        }}
         </tbody>
         <tfoot>
             <tr>
                 <th scope="row"></th>
                 <td></td>
                 <td></td>
-                <td>120 ლ</td>
+                <td>@ViewBag.TotalPrice ₾ </td>
             </tr>
         </tfoot>
     </table>

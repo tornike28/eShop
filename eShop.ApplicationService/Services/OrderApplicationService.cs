@@ -20,10 +20,10 @@ namespace eShop.ApplicationService.Services
         {
             return _OrderRepository.GetOrders();
         }
-        public List<InsideCartDTO> GetCartInfo(Guid userID)
+        public List<InsideCartDTO> GetCartInfo(string userMail)
         {
 
-            return _OrderRepository.GetCartInfo(userID);
+            return _OrderRepository.GetCartInfo(userMail);
         }
         public bool AddToCart(AddOrderDTO addOrderDTO)
         {

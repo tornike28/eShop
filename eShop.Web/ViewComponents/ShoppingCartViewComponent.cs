@@ -1,5 +1,6 @@
 ﻿using eShop.ApplicationService.ServiceInterfaces;
 using eShop.Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,8 +18,9 @@ namespace SportsStore.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            Guid UserId = Guid.NewGuid();
-            var listofShoppingCarts = _OrderApplicationService.GetCartInfo(UserId).ToList();
+            var UserMail = HttpContext.Session.GetString("UserName");
+
+            var listofShoppingCarts = _OrderApplicationService.GetCartInfo(UserMail).ToList();
             var numberofrecords = listofShoppingCarts.Count();
 
             var viewModel = new ShoppingCart

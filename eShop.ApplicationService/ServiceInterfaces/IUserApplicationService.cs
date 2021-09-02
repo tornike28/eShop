@@ -17,5 +17,7 @@ namespace eShop.ApplicationService.ServiceInterfaces
         List<UserStatisticsDTO> GetUsersStatisticQuery();
         ResultDTO UserRegistration(UserDTO loginModel);
         void UserActivation(string userMail);
+        UserQueryDTO GetUserQuery(string mail);
+        void UpdateUserInformation(UserDTO userDTO);
     }
 }

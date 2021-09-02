@@ -25,13 +25,13 @@ namespace eShop.Admin.Filters
                 bool isAuthorized = _auth.CheckSessionIsValid(_sessionID);
                 if (!isAuthorized)
                 {
-                    context.Result = new RedirectResult("~/auth/Login/");
+                    context.Result = new RedirectResult("~/auth/login/");
                 }
 
             }
             catch (Exception ex)
             {
-                context.Result = new RedirectResult("~/auth/Login/");
+                context.Result = new RedirectResult("~/auth/login/");
             }
         }
     }
