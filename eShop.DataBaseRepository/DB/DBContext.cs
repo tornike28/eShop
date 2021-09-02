@@ -279,6 +279,8 @@ namespace eShop.DataBaseRepository.DB
                     .HasColumnName("ID")
                     .HasDefaultValueSql("(newid())");
 
+                entity.Property(e => e.City).HasMaxLength(50);
+
                 entity.Property(e => e.DateChanged).HasColumnType("datetime");
 
                 entity.Property(e => e.DateCreated)

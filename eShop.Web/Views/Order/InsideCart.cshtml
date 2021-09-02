@@ -1,5 +1,4 @@
-﻿@model List<eShop.DataTransferObject.InsideCartDTO>
-
+﻿@model eShop.Web.Models.InsideCartModel
 
 <div style="margin:30px;">
     <h2>პროდუქტები</h2>
@@ -14,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            @{foreach (var item in Model)
+            @{foreach (var item in Model.CartInfo)
                 {
                     <tr>
                         <th scope="row">1</th>
@@ -27,7 +26,6 @@
                                 </div>
                             </div>
 
-
                         </td>
                         <td>@item.price</td>
                         <td>
@@ -35,7 +33,7 @@
                             <button class="btn btn-danger">წაშლა</button>
                         </td>
                     </tr>
-                        }}
+                }}
         </tbody>
         <tfoot>
             <tr>
@@ -59,24 +57,30 @@
 
             </tr>
         </thead>
-        <tbody>
 
+        @{
+            var i = 1;
+            foreach (var item in Model.address)
+            {
+                <tbody>
 
-            <tr>
-                <td scope="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1"></label>
-                    </div>
-                </td>
-                <th scope="row">3</th>
-                <td>თბილისი</td>
-                <td>
-                    ვაკის ქუჩა
-                </td>
-            </tr>
-        </tbody>
-
+                    <tr>
+                        <td scope="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1"></label>
+                            </div>
+                        </td>
+                        <th scope="row">@i</th>
+                        <td>@item.City</td>
+                        <td>
+                            @item.FullAddress
+                        </td>
+                    </tr>
+                </tbody>
+                i++;
+            }
+        }
 
     </table>
 </div>

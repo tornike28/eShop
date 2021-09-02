@@ -119,6 +119,25 @@ namespace eShop.DataBaseRepository
             }
         }
 
+        public List<UserAddressDTO> GetUserAddresses(string userMail)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var UserId = (from u in context.Users
+                              where u.DateDeleted == null && u.Email == userMail
+                              select u.Id).FirstOrDefault();
+
+                var query = (from u in context.UserAddresses
+                             select new UserAddressDTO
+                             {
+                                 City = u.City,
+                                 FullAddress = u.FullAddress
+                             }).ToList();
+
+                return query;
+            }
+        }
+
         public UserQueryDTO GetUserQuery(string mail)
         {
             using (eShopDBContext context = new eShopDBContext())
@@ -197,6 +216,32 @@ namespace eShop.DataBaseRepository
                 else
                 {
                     return false;
+                }
+            }
+        }
+
+        public void SaveUserAddress(UserAddressDTO userAddressDTO)
+        {
+            using (eShopDBContext context = new eShopDBContext())
+            {
+                var User = (from u in context.Users
+                           where u.Email == userAddressDTO.Email
+                           select u.Id).FirstOrDefault();
+
+                if (User != Guid.Empty)
+                {
+                    UserAddress userAddress = new UserAddress()
+                    {
+                        UserId = User,
+                        City = userAddressDTO.City,
+                        FullAddress = userAddressDTO.FullAddress,
+                        IsPrimary = false,
+                        DateCreated = DateTime.Now
+                    };
+                    context.UserAddresses.Add(userAddress);
+                    context.SaveChanges();
+
+
                 }
             }
         }

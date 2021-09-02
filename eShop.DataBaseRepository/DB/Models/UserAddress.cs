@@ -20,6 +20,7 @@ namespace eShop.DataBaseRepository.DB.Models
         public DateTime DateCreated { get; set; }
         public DateTime? DateChanged { get; set; }
         public DateTime? DateDeleted { get; set; }
+        public string City { get; set; }
 
         public virtual User User { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

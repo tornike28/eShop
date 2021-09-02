@@ -85,6 +85,16 @@ namespace eShop.ApplicationService.Services
         {
              _UserRepository.UpdateUserInformation(userDTO);
         }
+
+        public void SaveUserAddress(UserAddressDTO userAddressDTO)
+        {
+            _UserRepository.SaveUserAddress(userAddressDTO);
+        }
+
+        public List<UserAddressDTO> GetUserAddresses(string userMail)
+        {
+            return _UserRepository.GetUserAddresses(userMail);
+        }
     }
 }
 

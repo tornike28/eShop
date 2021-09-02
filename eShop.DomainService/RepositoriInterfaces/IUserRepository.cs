@@ -22,5 +22,7 @@ namespace eShop.DomainService.RepositoriInterfaces
         void UserActivation(string userMail);
         UserQueryDTO GetUserQuery(string mail);
         void UpdateUserInformation(UserDTO userDTO);
+        void SaveUserAddress(UserAddressDTO userAddressDTO);
+        List<UserAddressDTO> GetUserAddresses(string userMail);
     }
 }

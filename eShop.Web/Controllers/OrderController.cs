@@ -14,10 +14,12 @@ namespace eShop.Web.Controllers
     public class OrderController : Controller
     {
         IOrderApplicationService _OrderApplicationService;
+        IUserApplicationService _UserApplicationService;
 
-        public OrderController(IOrderApplicationService OrderApplicationService)
+        public OrderController(IOrderApplicationService OrderApplicationService, IUserApplicationService UserApplicationService)
         {
             _OrderApplicationService = OrderApplicationService;
+            _UserApplicationService = UserApplicationService;
         }
         [Authorize]
         public IActionResult AddToCart(CartModel cartModel)
@@ -44,8 +46,16 @@ namespace eShop.Web.Controllers
         {
             var UserMail = HttpContext.Session.GetString("UserName");
 
-            var viewModel = _OrderApplicationService.GetCartInfo(UserMail);
-            ViewBag.TotalPrice = viewModel.Select(x => x.TotalPrice).FirstOrDefault(); 
+            var cartInfo = _OrderApplicationService.GetCartInfo(UserMail);
+            ViewBag.TotalPrice = cartInfo.Select(x => x.TotalPrice).FirstOrDefault();
+
+            var userAddress = _UserApplicationService.GetUserAddresses(UserMail);
+
+            var viewModel = new InsideCartModel()
+            {
+                address = userAddress,
+                CartInfo = cartInfo
+            };
 
             return View(viewModel);
         }

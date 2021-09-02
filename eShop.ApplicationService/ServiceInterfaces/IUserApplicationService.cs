@@ -1,4 +1,5 @@
-﻿using eShop.DataTransferObject;
+﻿using eShop.ApplicationService.Services;
+using eShop.DataTransferObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,7 @@ namespace eShop.ApplicationService.ServiceInterfaces
         void UserActivation(string userMail);
         UserQueryDTO GetUserQuery(string mail);
         void UpdateUserInformation(UserDTO userDTO);
+        void SaveUserAddress(UserAddressDTO userAddressDTO);
+        List<UserAddressDTO> GetUserAddresses(string userMail);
     }
 }

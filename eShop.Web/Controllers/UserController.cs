@@ -25,7 +25,15 @@ namespace eShop.Web.Controllers
 
             var user = _UserApplicationService.GetUserQuery(UserMail);
 
-            return View(user);
+            var userAddress = _UserApplicationService.GetUserAddresses(UserMail);
+
+            var viewModel = new GetUserModel()
+            {
+                User = user,
+                UserAddress = userAddress
+            };
+
+            return View(viewModel);
         }
         public IActionResult UpdateUserInformation(UpdateUserInfoModel updateUserInfoModel)
         {
@@ -37,7 +45,21 @@ namespace eShop.Web.Controllers
                 Email = updateUserInfoModel.Email
             });
 
-            return RedirectToAction(controllerName: "User", actionName:"GetUser");
+            return RedirectToAction(controllerName: "User", actionName: "GetUser");
         }
+        public IActionResult SaveUserAddress(UserAddressModel userAddressModel)
+        {
+            var UserMail = HttpContext.Session.GetString("UserName");
+
+            _UserApplicationService.SaveUserAddress(new UserAddressDTO()
+            {
+                City = userAddressModel.City,
+                FullAddress = userAddressModel.FullAddress,
+                Email = UserMail
+            });
+
+            return RedirectToAction(controllerName: "User", actionName: "GetUser");
+        }
+
     }
 }
